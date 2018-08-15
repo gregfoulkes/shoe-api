@@ -22,33 +22,7 @@ module.exports = function(pool)  {
 
     }
 
-   async function addShoeToList(params) {
-
-
-        let shoeRows = await pool.query('select color,brand,price,size, in_stock from shoes')
-        let shoes = shoeRows.rows
-        console.log(shoes)
-        var exists = false;
-        for (let param in params){
-        for (var i = 0; i < shoes.length; i++) {
-            var shoe = shoes[i]
-            if (param.color === shoes.color && param.brand === shoe.brand && param.size === shoe.size && param.price === shoe.price) {
-              shoe.in_stock += shoes.in_stock;
-              exists = true;
-            }
-          }
-      
-          if (!exists) {
-          await pool.query('INSERT INTO shoes (color,brand,price,size, in_stock) VALUES($1,$2,$3,$4,$5)', [param.color, param.brand, param.price, param.size, param.qty])
-  
-          }
-        
-    }
-      
-        console.log(shoes)
-        return shoes
-    
-      }
+// 
 
 
     async function getBrandQuery(brand) {
@@ -73,7 +47,6 @@ module.exports = function(pool)  {
 
     return {
     addShoes,
-    addShoeToList,
     getBrandQuery,
     getSizeQuery,
     shoeList
@@ -81,6 +54,34 @@ module.exports = function(pool)  {
     }
   
     }
+
+   // async function addShoeToList(params) {
+
+
+        //         let shoeRows = await pool.query('select color,brand,price,size, in_stock from shoes')
+        //         let shoes = shoeRows.rows
+        //         console.log(shoes)
+        //         var exists = false;
+        //         for (let param in params){
+        //         for (var i = 0; i < shoes.length; i++) {
+        //             var shoe = shoes[i]
+        //             if (param.color === shoes.color && param.brand === shoe.brand && param.size === shoe.size && param.price === shoe.price) {
+        //               shoe.in_stock += shoes.in_stock;
+        //               exists = true;
+        //             }
+        //           }
+              
+        //           if (!exists) {
+        //           await pool.query('INSERT INTO shoes (color,brand,price,size, in_stock) VALUES($1,$2,$3,$4,$5)', [param.color, param.brand, param.price, param.size, param.qty])
+          
+        //           }
+                
+        //     }
+              
+        //         console.log(shoes)
+        //         return shoes
+            
+        //       }
 
     // async function getBrand (brand) {
     //     let shoeRows = await pool.query('select color,brand,price,size, in_stock from shoes')
