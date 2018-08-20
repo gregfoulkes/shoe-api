@@ -47,6 +47,7 @@ module.exports = function(pool)  {
 // Check if shoe exists in basket
        let findShoe = await pool.query('select id from shoes where color = $1 and brand =$2 and price =$3', [params.color, params.brand, params.price])
         let foundShoe = findShoe.rowCount
+        console.log(findShoe.rows)
 
 //if not add it
        if(foundShoe == 0){
@@ -55,6 +56,7 @@ module.exports = function(pool)  {
 
 //if yes only increment the in_stock
        if(foundShoe > 0){
+           log(foundShoe)
         await pool.query('UPDATE shoes(in_stock) SET in_stock=(in_stock + $1) WHERE color=$2 and brand =$3 ', [params.qty,params.color, params.brand])   
         }
     }
