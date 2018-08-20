@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/gregfoulkes/shoe-api.svg?branch=master)](https://travis-ci.org/gregfoulkes/shoe-api)

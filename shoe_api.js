@@ -47,7 +47,7 @@ module.exports = function(pool)  {
 // Check if shoe exists in basket
        let findShoe = await pool.query('select id from shoes where color = $1 and brand =$2 and price =$3', [params.color, params.brand, params.price])
         let foundShoe = findShoe.rowCount
-        console.log(findShoe.rows)
+       // console.log(findShoe.rows)
 
 //if not add it
        if(foundShoe == 0){
