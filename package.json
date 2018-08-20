@@ -7,7 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node index.js"
+
+  },
+  "engines": {
+    "node": "8.9.4"
   },
   "keywords": [],
   "author": "",
