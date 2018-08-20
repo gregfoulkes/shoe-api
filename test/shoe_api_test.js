@@ -133,24 +133,24 @@ describe('Waiter Web App Functions', function() {
       ])
     })
 
-    // it('Should add a shoe to list of all the shoes and only increment in stock value', async function(){
-    //   let shoeApi = ShoeApi(pool)
-    //   //await shoeApi.addShoes()
-    //         //await shoeApi.addShoeToList({color:'blue',brand:'Puma',price:500,size:9, qty: 1})
+    it('Should add a shoe to list of all the shoes and only increment in stock value', async function(){
+      let shoeApi = ShoeApi(pool)
+      //await shoeApi.addShoes()
+    await shoeApi.addShoeToList({color:'blue',brand:'Puma',price:500,size:9, qty: 1})
 
-    //  await shoeApi.addShoeToList({color:'blue',brand:'Puma',price:500,size:9, qty: 10})
-    //   let shoes = await shoeApi.shoeList()
-    //   //console.log(shoes)
-    //   assert.deepEqual(shoes,
-    //     [{color : 'blue', brand : "Nike",price : 350, size:8, in_stock : 5},
-    //     {color : 'blue', brand : "Adidas",price : 275, size:6, in_stock : 3},
-    //     {color : 'blue', brand : "New Balance",price : 320, size:4, in_stock : 7},
-    //     {color : 'blue', brand : "LaCoste",price : 400, size:8, in_stock : 4},
-    //     {color : 'blue', brand : "All Stars",price : 250, size:7, in_stock : 5},
-    //     {color : 'black', brand : "Nike",price : 350, size:5, in_stock : 10},
-    //     {color:'blue',brand:'Puma',price: 500,size:9, in_stock: 11}
-    //   ])
-    // })
+     await shoeApi.addShoeToList({color:'blue',brand:'Puma',price:500,size:9, qty: 10})
+      let shoes = await shoeApi.shoeList()
+      //console.log(shoes)
+      assert.deepEqual(shoes,
+        [{color : 'blue', brand : "Nike",price : 350, size:8, in_stock : 5},
+        {color : 'blue', brand : "Adidas",price : 275, size:6, in_stock : 3},
+        {color : 'blue', brand : "New Balance",price : 320, size:4, in_stock : 7},
+        {color : 'blue', brand : "LaCoste",price : 400, size:8, in_stock : 4},
+        {color : 'blue', brand : "All Stars",price : 250, size:7, in_stock : 5},
+        {color : 'black', brand : "Nike",price : 350, size:5, in_stock : 10},
+        {color:'blue',brand:'Puma',price: 500,size:9, in_stock: 11}
+      ])
+    })
 
     // it('Should add an item to shopping basket', async function (){
     //   let shoeApi = ShoeApi(pool)

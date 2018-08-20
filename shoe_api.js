@@ -42,23 +42,31 @@ module.exports = function(pool)  {
 
 
     async function addShoeToList(params) {
+        console.log(params)
 
-
-// Check if shoe exists in basket
-       let findShoe = await pool.query('select id from shoes where color = $1 and brand =$2 and price =$3', [params.color, params.brand, params.price])
-        let foundShoe = findShoe.rowCount
-       // console.log(findShoe.rows)
-
-//if not add it
-       if(foundShoe == 0){
-           await pool.query('insert into shoes (color,brand,price,size, in_stock) values($1,$2,$3,$4,$5)', [params.color,params.brand,params.price,params.size,params.qty])
-       }
-
-//if yes only increment the in_stock
-       if(foundShoe > 0){
-           log(foundShoe)
-        await pool.query('UPDATE shoes(in_stock) SET in_stock=(in_stock + $1) WHERE color=$2 and brand =$3 ', [params.qty,params.color, params.brand])   
+        try {
+            let findShoe = await pool.query('select * from shoes where color=$1 and brand=$2 and price=$3', [params.color, params.brand, params.price])
+            let foundShoe = findShoe.rowCount
+            console.log('match', findShoe.rowCount)
+    
+           // console.log(findShoe.rows[0].id)
+    
+    //if not add it
+           if(foundShoe === 0){
+               await pool.query('insert into shoes (color,brand,price,size, in_stock) values($1,$2,$3,$4,$5)', [params.color,params.brand,params.price,params.size,params.qty])
+           }
+    
+    //if yes only increment the in_stock
+           if(foundShoe > 0){
+               //log(foundShoe)
+            await pool.query('UPDATE shoes SET in_stock=(in_stock + $1) WHERE id=$2', [params.qty,findShoe.rows[0].id])   
+            }
+            
+        } catch (error) {
+            error.stack;
         }
+// Check if shoe exists in basket
+   
     }
 
     async function addItemToBasket(id){
