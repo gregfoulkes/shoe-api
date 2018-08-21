@@ -179,14 +179,14 @@ describe('Waiter Web App Functions', function() {
       ])
     })
 
-    // it('Should only increment the qauntity of an item in the shopping basket', async function (){
-    //   let shoeApi = ShoeApi(pool)
-    //   let thisId = await pool.query('select id from shoes where color=$1',['black']);
-    //   await shoeApi.addItemToBasket(thisId.rows[0].id)
-    //   await shoeApi.addItemToBasket(thisId.rows[0].id)
-    //   let basketItem =  await pool.query('select shoe_id, price, qty from basket')
-    //   assert.deepEqual(basketItem.rows, [{shoe_id: thisId.rows[0].id, price: 350, qty:2 }])
-    // })
+    it('Should only increment the qauntity of an item in the shopping basket', async function (){
+      let shoeApi = ShoeApi(pool)
+      let thisId = await pool.query('select id from shoes where color=$1',['black']);
+      await shoeApi.addItemToBasket(thisId.rows[0].id)
+      await shoeApi.addItemToBasket(thisId.rows[0].id)
+      let basketItem =  await pool.query('select shoe_id, price, qty from basket')
+      assert.deepEqual(basketItem.rows, [{shoe_id: thisId.rows[0].id, price: 350, qty:2 }])
+    })
 
 
     

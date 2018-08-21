@@ -9,12 +9,10 @@
   "scripts": {
     "test": "mocha",
     "start": "node index.js"
-
   },
   "engines": {
     "node": "8.9.4"
   },
-  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -28,6 +26,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "lodash": "^4.17.10",
+    "nyc": "^12.0.2",
     "pg": "^7.4.3"
   },
   "devDependencies": {
