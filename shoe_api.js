@@ -42,12 +42,12 @@ module.exports = function(pool)  {
 
 
     async function addShoeToList(params) {
-        console.log(params)
+        //console.log(params)
 
         try {
             let findShoe = await pool.query('select * from shoes where color=$1 and brand=$2 and price=$3', [params.color, params.brand, params.price])
             let foundShoe = findShoe.rowCount
-            console.log('match', findShoe.rowCount)
+            //console.log('match', findShoe.rowCount)
     
            // console.log(findShoe.rows[0].id)
     
@@ -73,14 +73,23 @@ module.exports = function(pool)  {
 
         //get id 
         let findId = await pool.query('select * from shoes where id= $1', [id])
-        let foundId = findId.rows
-        if(foundId > 0){
+        let foundId = findId.rows[0].id
+        let findBasketItem = await pool.query('select from basket where id=$1', [foundId])
+        console.log('no match',findBasketItem.rowCount)
+        if(findBasketItem.rowCount == 0){
 
-        await pool.query('INSERT INTO basket(brand, price, qty, shoe_id) values($1, $2, $3, $4)',[foundId.brand, foundId.price, foundId.qty,id ])
+        await pool.query('INSERT INTO basket( price, shoe_id) values($1, $2)',[findId.rows[0].price,foundId])
+        await pool.query('UPDATE basket SET qty=(qty + 1) WHERE id=$1',[foundId])
+        await pool.query('UPDATE shoes SET in_stock=(in_stock - 1) WHERE id=$1',[foundId])
+
+
     }
+    console.log('match found',findBasketItem.rowCount)
 
+    if(findBasketItem.rowCount == 1){
+        await pool.query('UPDATE basket SET qty=(qty + 1) WHERE shoe_id=$1',[foundId])
 
-
+    }
     }
 
     async function returnBasket(){

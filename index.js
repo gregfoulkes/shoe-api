@@ -86,6 +86,22 @@ app.get('/api/shoes', async function (req, res) {
     }
 })
 
+app.get('/api/shoes/brand/:brandname	', async function (req, res) {
+    let brand = req.params.brandname
+    try {
+        const shoes = await shoeApi.getBrandandSizeQuery(brand);
+        res.json({
+            status: 'success',
+            data: shoes
+        });
+    } catch (err) {
+        res.json({
+            status: 'error',
+            error: err.stack
+        });
+    }
+})
+
 // app.post('/api/shoes', async function (req, res) {
 //     try {
         

@@ -27,8 +27,10 @@ describe('Waiter Web App Functions', function() {
     //  await pool.query('i\ sql_scripts/shoe_api_table.sql')
 
     //  await pool.query('i\ sql_scripts/insert_shoes.sql')
+    await pool.query("delete from basket");
 
      await pool.query("delete from shoes");
+
 
     // await pool.query('INSERT INTO shoes(color,brand, price, size, in_stock) values('blue', 'Nike', 350, 8, 5)',)
     // await pool.query('INSERT INTO shoes(color,brand, price, size, in_stock) values('blue', 'Adidas', 275, 6, 3)',)
@@ -152,18 +154,39 @@ describe('Waiter Web App Functions', function() {
       ])
     })
 
-    // it('Should add an item to shopping basket', async function (){
-    //   let shoeApi = ShoeApi(pool)
+    it('Should add an item to shopping basket', async function (){
+      let shoeApi = ShoeApi(pool)
+      let thisId = await pool.query('select id from shoes where color=$1',['black']);
+      await shoeApi.addItemToBasket(thisId.rows[0].id)
+      let basketItem =  await pool.query('select shoe_id, price, qty from basket')
+      assert.deepEqual(basketItem.rows, [{shoe_id: thisId.rows[0].id, price: 350, qty:1 }])
+    })
 
-    //   let thisId = await pool.query('select id from shoes where color=$1',['black']);
-    //   //console.log(thisId)
-    //   //console.log(returnBasket)
-    //   await shoeApi.addItemToBasket(thisId)
-    //   let addedItem = await shoeApi.returnBasket()
-    //   console.log('addedItem: ' + addedItem)
+    it('Should add a shoe to basket and only decrement in stock value', async function(){
+      let shoeApi = ShoeApi(pool)
 
-    //   assert.deepEqual(addedItem, {id: 1, shoe_id: thisId, price: 350, qty:1 })
-    // })
+    let thisId = await pool.query('select id from shoes where color=$1',['black']);
+    await shoeApi.addItemToBasket(thisId.rows[0].id)
+      let shoes = await shoeApi.shoeList()
+      assert.deepEqual(shoes,
+        [{color : 'blue', brand : "Nike",price : 350, size:8, in_stock : 5},
+        {color : 'blue', brand : "Adidas",price : 275, size:6, in_stock : 3},
+        {color : 'blue', brand : "New Balance",price : 320, size:4, in_stock : 7},
+        {color : 'blue', brand : "LaCoste",price : 400, size:8, in_stock : 4},
+        {color : 'blue', brand : "All Stars",price : 250, size:7, in_stock : 5},
+        {color : 'black', brand : "Nike",price : 350, size:5, in_stock : 9},
+        // {color:'blue',brand:'Puma',price: 500,size:9, in_stock: 10}
+      ])
+    })
+
+    it('Should only increment the qauntity of an item in the shopping basket', async function (){
+      let shoeApi = ShoeApi(pool)
+      let thisId = await pool.query('select id from shoes where color=$1',['black']);
+      await shoeApi.addItemToBasket(thisId.rows[0].id)
+      await shoeApi.addItemToBasket(thisId.rows[0].id)
+      let basketItem =  await pool.query('select shoe_id, price, qty from basket')
+      assert.deepEqual(basketItem.rows, [{shoe_id: thisId.rows[0].id, price: 350, qty:2 }])
+    })
 
 
     
