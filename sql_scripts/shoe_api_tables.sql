@@ -12,7 +12,7 @@ create table shoes (
 
 create table basket(
     id serial not null primary key,
-    shoe_id int not null,
+    shoe_id int not null UNIQUE ,
     price DECIMAL(7, 2) not null,
     qty SMALLINT DEFAULT 1,
     FOREIGN KEY (shoe_id) REFERENCES shoes(id)

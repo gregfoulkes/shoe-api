@@ -87,9 +87,9 @@ app.get('/api/shoes', async function (req, res) {
 })
 
 app.get('/api/shoes/brand/:brandname	', async function (req, res) {
-    let brand = req.params.brandname
+    let brandName = req.params.brandname
     try {
-        const shoes = await shoeApi.getBrandandSizeQuery(brand);
+        const shoesBySize = await shoeApi.getBrandandSizeQuery(brandName);
         res.json({
             status: 'success',
             data: shoes

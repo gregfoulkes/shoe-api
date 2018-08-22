@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "nyc mocha",
     "start": "node index.js"
   },
   "engines": {
@@ -26,10 +26,10 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "lodash": "^4.17.10",
-    "nyc": "^12.0.2",
     "pg": "^7.4.3"
   },
   "devDependencies": {
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "nyc": "^12.0.2"
   }
 }
