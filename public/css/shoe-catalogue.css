@@ -1,0 +1,235 @@
+*{
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  font-family: Helvetica, sans-serif;
+  font-size: 1.4rem;
+}
+
+.center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.container {
+  padding: 1rem;
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.container:before, .container:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row {
+
+  width: 100%;
+  margin-bottom: 2rem;
+
+}
+
+.row:before,.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row div{
+  /* width: 100%;
+  max-width: 420px; */
+  float: left;
+}
+
+/* heading and cart Total */
+.heading{
+  width: 100%;
+
+}
+
+.shoeHeading h1{
+  width:50%;
+}
+
+h1 {
+  float:left;
+  width: 100%;
+}
+
+
+.displayCartTotals button{
+  width: 100px;
+  padding: 0.5rem;
+
+}
+
+.displayCartTotal span {
+  margin-right: 1rem;
+}
+
+/* selectors */
+
+.selectors {
+  float: left;
+  padding-left: 6px;
+  margin-right: 50px;
+  margin-left: 9px;
+  width: 30%;
+  max-width: 100px;
+
+}
+
+
+.selectors select, .selectors button {
+
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+
+/* add to shoeList */
+.addBox{
+  padding: 1rem;
+  border: solid black 1px;
+  width: 100%;
+  font-size: small;
+  line-height: 2rem;
+}
+
+.addBox div {
+  float:left;
+  width: fit-content;
+}
+.addBox select {
+  margin-right: 6px;
+  padding: 3px;
+  width:90px;
+}
+
+.addBox input {
+  margin-right: 6px;
+  padding: 3px;
+  width:90px;
+}
+
+.addBox span{
+  float: left;
+  width: 50px;
+}
+
+.addBox button{
+  /* float: left; */
+  width: 50px;
+  padding: 0.5rem;
+  margin-left: 1.5rem;
+}
+
+
+/* display filtered shoelist/ display shoppingBasket */
+
+.displayFilteredShoes table, .displayBasket table{
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+  width: 80%;
+  max - height: 200px;
+  font-size: small;
+  /* border: solid black 0.5px; */
+  padding: 1rem;
+  box-shadow: 0 2px 5px #ccc;
+
+}
+
+.displayFilteredShoes td, .displayBasket td{
+  margin: 1rem;
+  width: 10px;
+  /* border-bottom:solid black 0.5px; */
+}
+
+.displayShoelist{
+  margin-bottom: 2rem;
+padding: 1.5rem;
+  height: 100%;
+  /* overflow-y: scroll; */
+  width: 100%;
+  /* height: px; */
+  max-height: 232px;
+  max-width: 350px;
+  box-shadow: 0 2px 5px #ccc;
+}
+
+.basket-wrapper {
+  width: 100%;
+  max-width: 350px;
+
+  max-height: 232px;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.displayBasketlist{
+  margin-left: 5rem;
+
+  width: 70%;
+  max-height: 100px;
+  max-width: 350px;
+
+  font-size: small;
+  border: solid black 1px;
+  padding: 1rem;
+  box-shadow: 0 2px 5px #ccc;
+
+}
+
+.cartDisplayTemplate {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+}
+
+@media (max-width: 700px) {
+
+  .selectors select {
+    width: 90%;
+    padding:20px;
+    float: left;
+  }
+
+
+  .selectors {
+    float: left;
+    padding-left: 6px;
+    margin-right: 50px;
+    margin-left: 9px;
+    width: 100%;
+    /* max-width: 100px; */
+
+  }
+
+  .row {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+
+  .addBox button{
+    /* float: left; */
+    width: 100%;
+    padding: 0.5rem;
+    margin-left: 1.5rem;
+  }
+
+
+}
