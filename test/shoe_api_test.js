@@ -142,33 +142,6 @@ describe('Shoe Api shoe Functions', function() {
       ])
     })
 
-
-
-    // it('Should only increment the qauntity of an item in the shopping basket', async function (){
-    //   let shoeApi = ShoeApi(pool)
-    //   let thisId = await pool.query('select id from shoes where color=$1',['black']);
-    //   await shoeApi.addItemToBasket(thisId.rows[0].id)
-    //   await shoeApi.addItemToBasket(thisId.rows[0].id)
-    //   //console.log('id',thisId.rows[0].id)
-    //   let basketItem =  await pool.query('select shoe_id, price, qty from basket')
-    //   assert.deepEqual(basketItem.rows, [{shoe_id: thisId.rows[0].id, price: 350, qty:2 }])
-    // })
-
-    // it('Should delete an item in the shopping basket', async function (){
-    //   let shoeApi = ShoeApi(pool)
-    //   let thisId = await pool.query('select id from shoes where color=$1',['black']);
-    //   await shoeApi.addItemToBasket(thisId.rows[0].id)
-    //   await shoeApi.deleteItemfromCart(thisId.rows[0].id)
-    //   //console.log('id',thisId.rows[0].id)
-    //   let basketItem =  await shoeApi.returnBasket()
-
-    //   assert.deepEqual(basketItem, [{}])
-    //  
-    // })
-
-
-    
-
      })
 
   describe('Shoe Api shoe basket Functions', function() {

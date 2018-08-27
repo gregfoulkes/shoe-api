@@ -65,6 +65,8 @@ app.use(function (req, res, next) {
 });
 
 const ShoeApi = require('./services/shoe_api.js');
+// const ShoeRoutes = require('./js/shoe_api.js');
+
 const shoeApi = ShoeApi(pool);
 
 app.get('/', async function (req, res, next) {
@@ -87,13 +89,68 @@ app.get('/api/shoes', async function (req, res) {
     }
 })
 
-app.get('/api/shoes/brand/:brandname	', async function (req, res) {
+app.get('/api/shoes/brand/:brandname', async function (req, res) {
     let brandName = req.params.brandname
     try {
-        const shoesBySize = await shoeApi.getBrandandSizeQuery(brandName);
+        const shoeByBrand = await shoeApi.getBrandQuery(brandName);
+        console.log(shoeByBrand)
         res.json({
             status: 'success',
-            data: shoes
+            data: shoeByBrand
+        });
+    } catch (err) {
+        res.json({
+            status: 'error',
+            error: err.stack
+        });
+    }
+})
+
+app.get('/api/shoes/size/:size', async function (req, res) {
+    let shoeSize = req.params.size
+    try {
+        const shoeBySize = await shoeApi.getSizeQuery(shoeSize);
+        console.log(shoeBySize)
+        res.json({
+            status: 'success',
+            data: shoeBySize
+        });
+    } catch (err) {
+        res.json({
+            status: 'error',
+            error: err.stack
+        });
+    }
+})
+
+app.get('/api/shoes/brand/:brandname/size/:size	', async function (req, res) {
+    let shoeSize = req.params.size
+    let shoeBrand = req.params.brand
+
+    try {
+        const shoeByBrandAndSize = await shoeApi.getBrandandSizeQuery(shoeBrand, shoeSize);
+
+        //console.log(shoeBySize)
+        res.json({
+            status: 'success',
+            data: shoeByBrandAndSize
+        });
+    } catch (err) {
+        res.json({
+            status: 'error',
+            error: err.stack
+        });
+    }
+})
+
+app.post('/api/shoes', async function (req, res) {
+    
+    try {
+        const insertShoe = await shoeApi.addShoeToList(req.body);
+        console.log(req.body)
+        res.json({
+            status: 'success',
+            data: insertShoe
         });
     } catch (err) {
         res.json({

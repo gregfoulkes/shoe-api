@@ -1,11 +1,10 @@
-const axios = require('axios');
 
 
 function ShoeCatalogueFunction() {
 
-  async function getShoesByBrand(brand) {
+  function getShoesByBrand(brand) {
     try {
-      const response = await axios.get("/api/shoes/brand/" + brand);
+      const response = axios.get("/api/shoes/brand/" + brand);
 
       return response;
     } catch (error) {
@@ -13,9 +12,9 @@ function ShoeCatalogueFunction() {
     }
   }
 
-  async function getShoesBySize(size) {
+  function getShoesBySize(size) {
     try {
-      const response = await axios.get("/api/shoes/size/" + size);
+      const response = axios.get("/api/shoes/size/" + size);
 
       return response;
     } catch (error) {
@@ -23,9 +22,9 @@ function ShoeCatalogueFunction() {
     }
   }
 
-  async function getShoesByBrandAndSize(brand, size) {
+  function getShoesByBrandAndSize(brand, size) {
     try {
-      const response = await axios.get(
+      const response = axios.get(
         "/api/shoes/brand/" + brand + "/size/" + size
       );
 
@@ -35,15 +34,9 @@ function ShoeCatalogueFunction() {
     }
   }
 
-  async function addShoeToList(brand, color, size, price, in_stock) {
+   function addShoe(shoe) {
     try {
-      const response = await axios.post("/api/shoes/", {
-        brand,
-        color,
-        size,
-        price,
-        in_stock
-      });
+      const response = axios.post("/api/shoes/", shoe);
 
       return response;
     } catch (error) {
@@ -51,27 +44,27 @@ function ShoeCatalogueFunction() {
     }
   }
 
-  async function addToBasket(shoeId) {
+ function addToBasket(shoeId) {
     try {
-      const response = await axios.post("/api/shoes/sold/" + shoeId);
+      const response = axios.post("/api/shoes/sold/" + shoeId);
       return response;
     } catch (error) {
       alert(error);
     }
   }
 
-  async function clearShoppingBasket() {
+  function clearShoppingBasket() {
     try {
-      const response = await axios.post("/api/clear/");
+      const response = axios.post("/api/clear/");
       return response;
     } catch (error) {
       alert(error);
     }
   }
 
-  async function shoeList() {
+  function shoeList() {
     try {
-      const response = await axios.get("/api/shoes");
+      const response = axios.get("/api/shoes");
       return response;
     } catch (error) {
       alert(error);
@@ -84,7 +77,7 @@ function ShoeCatalogueFunction() {
     getShoesBySize,
     getShoesByBrandAndSize,
 
-    addShoeToList,
+    addShoe,
     addToBasket,
     clearShoppingBasket,
   }
