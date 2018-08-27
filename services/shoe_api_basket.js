@@ -38,7 +38,6 @@ module.exports = function (pool) {
             await pool.query("DELETE  FROM basket");
             return [];
         } else {
-            console.log("shopping cart is empty!!!")
             return 'shopping cart is empty!!!';
         }
     }

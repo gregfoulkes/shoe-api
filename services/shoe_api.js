@@ -41,7 +41,6 @@ module.exports = function(pool)  {
 
     async function addShoeToList(params) {
 
-        try {
             let findShoe = await pool.query('select * from shoes where color=$1 and brand=$2 and price=$3', [params.color, params.brand, params.price])
             let foundShoe = findShoe.rowCount
 
@@ -57,16 +56,10 @@ module.exports = function(pool)  {
                 await pool.query('UPDATE shoes SET in_stock=(in_stock + $1) WHERE id=$2', [params.qty, findShoe.rows[0].id])
             }
 
-        } catch (error) {
-            error.stack;
-        }
-        // Check if shoe exists in basket
-
     }
 
     async function shoeList() {
-        let shoes = await pool.query('select color,brand,price,size, in_stock from shoes')
-        // console.log(shoes.rows)
+        let shoes = await pool.query('select * from shoes')
         return shoes.rows;
     }
 

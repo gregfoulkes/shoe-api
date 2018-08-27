@@ -65,14 +65,13 @@ app.use(function (req, res, next) {
 });
 
 const ShoeApi = require('./services/shoe_api.js');
-// const ShoeRoutes = require('./js/shoe_api.js');
-
+const ShoeBasketApi = require('./services/shoe_api_basket.js');
+const shoeBasketApi = ShoeBasketApi()
 const shoeApi = ShoeApi(pool);
 
 app.get('/', async function (req, res, next) {
     res.json('Hello')
 })
-
 
 app.get('/api/shoes', async function (req, res) {
     try {
@@ -146,11 +145,13 @@ app.get('/api/shoes/brand/:brandname/size/:size	', async function (req, res) {
 app.post('/api/shoes', async function (req, res) {
     
     try {
-        const insertShoe = await shoeApi.addShoeToList(req.body);
+         await shoeApi.addShoeToList(req.body);
+        const shoes = await shoeApi.shoeList();
+
         console.log(req.body)
         res.json({
             status: 'success',
-            data: insertShoe
+            data: shoes
         });
     } catch (err) {
         res.json({
@@ -160,23 +161,25 @@ app.post('/api/shoes', async function (req, res) {
     }
 })
 
-// app.post('/api/shoes', async function (req, res) {
-//     try {
+app.post('/api/shoes/sold/:id', async function (req, res) {
+    try {
         
-//         let shoeData = req.body;
-//         const shoe = await shoeApi.createShoe(shoeData);
-//         res.json({
-//             status: 'success',
-//             data: shoe
-//         });
+        //let basketId = req.params.id;
+        console.log(req.params.id)
+        await shoeBasketApi.addItemToBasket(req.params);
+        const basket = await shoeBasketApi.returnBasket()
+        res.json({
+            status: 'success',
+            data: basket
+        });
 
-//     } catch (err) {
-//         res.json({
-//             status: 'error',
-//             error: err.stack
-//         });
-//     }
-// })
+    } catch (err) {
+        res.json({
+            status: 'error',
+            error: err.stack
+        });
+    }
+})
 
 //start the server
 let PORT = process.env.PORT || 6008;

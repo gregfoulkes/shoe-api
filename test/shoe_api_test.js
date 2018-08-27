@@ -35,7 +35,20 @@ describe('Shoe Api shoe Functions', function() {
     it('Should return a list of all the shoes', async function(){
         let shoeApi = ShoeApi(pool)
         //await shoeApi.addShoes()
-        let shoes = await shoeApi.shoeList()
+        let shoeRows = await shoeApi.shoeList()
+        //let shoeRows = shoesList.rows
+        let shoes = []
+
+        for(shoe of shoeRows){
+          shoes.push({
+            color: shoe.color,
+            brand: shoe.brand,
+            price: shoe.price,
+            size: shoe.size,
+            in_stock: shoe.in_stock
+          })
+        }
+       // let shoes = await pool.query('select color,brand,price,size, in_stock from shoes')
        // console.log(shoes.rows)
         assert.deepEqual(shoes,
           [{color : 'blue', brand : "Nike",price : 350, size:8, in_stock : 5},
@@ -111,8 +124,11 @@ describe('Shoe Api shoe Functions', function() {
       let shoeApi = ShoeApi(pool)
       //await shoeApi.addShoes()
       await shoeApi.addShoeToList({color:'blue',brand:'Puma',price:'500',size:9, qty: 1})
-      let shoes = await shoeApi.shoeList()
-        assert.deepEqual(shoes,
+      //let shoes = await shoeApi.shoeList()
+
+      let shoes = await pool.query('select color,brand,price,size, in_stock from shoes')
+
+        assert.deepEqual(shoes.rows,
           [{color : 'blue', brand : "Nike",price : 350, size:8, in_stock : 5},
           {color : 'blue', brand : "Adidas",price : 275, size:6, in_stock : 3},
           {color : 'blue', brand : "New Balance",price : 320, size:4, in_stock : 7},
@@ -129,9 +145,11 @@ describe('Shoe Api shoe Functions', function() {
       await shoeApi.addShoeToList({color:'blue',brand:'Puma',price:500,size:9, qty: 1})
 
       await shoeApi.addShoeToList({color:'blue',brand:'Puma',price:500,size:9, qty: 10})
-      let shoes = await shoeApi.shoeList()
+      //let shoes = await shoeApi.shoeList()
+      let shoes = await pool.query('select color,brand,price,size, in_stock from shoes')
+
       //console.log(shoes)
-      assert.deepEqual(shoes,
+      assert.deepEqual(shoes.rows,
         [{color : 'blue', brand : "Nike",price : 350, size:8, in_stock : 5},
         {color : 'blue', brand : "Adidas",price : 275, size:6, in_stock : 3},
         {color : 'blue', brand : "New Balance",price : 320, size:4, in_stock : 7},
@@ -188,10 +206,22 @@ describe('Shoe Api shoe Functions', function() {
         shoe_id: thisId.rows[0].id,
         price: 350,
         qty: 2
-      }, ])
-      let returnedShoeList = await shoeApi.shoeList();
-      assert.deepEqual(returnedShoeList, shoeList)
+      } ])
+      let returnedShoeList =  await pool.query('select color,brand,price,size, in_stock from shoes')
+
+      assert.deepEqual(returnedShoeList.rows, shoeList)
       })
+
+      it('Should return false if id is invalid', async function () {
+        let shoeApiBasket = ShoeApiBasket(pool);
+        let shoeApi = ShoeApi(pool)
+
+
+       // let thisId = await pool.query('select id from shoes where color=$1', ['black']);
+       let checkFalse = await shoeApiBasket.addItemToBasket('')
+
+    assert.deepEqual(checkFalse, false)
+    })
 
       it('Should return the total of an item from the shopping basket', async function (){
         let shoeApi = ShoeApiBasket(pool)
@@ -211,11 +241,9 @@ describe('Shoe Api shoe Functions', function() {
         assert.deepEqual(await shoeApi.deleteFromCart(), [])
       })
 
-      it('Should clear items from the shopping basket', async function (){
+      it('Should return message that cart is empty', async function (){
         let shoeApi = ShoeApiBasket(pool)
-        // let thisId = await pool.query('select id from shoes where color=$1',['black']);
-        // await shoeApi.addItemToBasket(thisId.rows[0].id)
-        // await shoeApi.addItemToBasket(thisId.rows[0].id)
+
 
         assert.deepEqual(await shoeApi.deleteFromCart(), 'shopping cart is empty!!!')
       })

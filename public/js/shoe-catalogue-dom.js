@@ -96,14 +96,14 @@ searchBtn.addEventListener('click', function(){
 
 });
 
-function getId(id) {
-  callFunction.addBasket(id)
-  callFunction.returnBasket();
-  callFunction.shoe();
-  listDisplay()
+// function getId(id) {
+//   callFunction.addBasket(id)
+//   callFunction.returnBasket();
+//   callFunction.shoe();
+//   listDisplay()
 
-  basketDisplay()
-}
+//   basketDisplay()
+// }
 
 addBtn.addEventListener('click', function () {
 
@@ -119,6 +119,18 @@ addBtn.addEventListener('click', function () {
   refreshShoes()
 
 });
+
+function getId(id){
+  apiRoutes.addToBasket(id)
+    .then(res => {
+
+  insertBasketDataElem.innerHTML = shoeBasketTemplate({
+    items: res.data.data
+  });
+
+
+  })
+}
 
 function basketDisplay() {
 callFunction.returnBasket();
