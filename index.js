@@ -5,6 +5,7 @@ var exphbs = require('express-handlebars');
 
 let flash = require('express-flash');
 let session = require('express-session');
+const axios = require('axios');
 
 //setup middleware
 var bodyParser = require('body-parser');
@@ -42,20 +43,20 @@ const pool = new Pool({
     ssl: useSSL
 })
 
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main',
-    helpers: {
-      flashMessage: function () {
-        if (this.messages.info == "Shift(s) successfully added!") {
-          return "success";
-        } else {
-          return "failure";
-        }
-      }
-    }
-  }));
+// app.engine('handlebars', exphbs({
+//     defaultLayout: 'main',
+//     helpers: {
+//       flashMessage: function () {
+//         if (this.messages.info == "Shift(s) successfully added!") {
+//           return "success";
+//         } else {
+//           return "failure";
+//         }
+//       }
+//     }
+//   }));
   
-app.set('view engine', 'handlebars');
+// app.set('view engine', 'handlebars');
 
 app.use(function (req, res, next) {
 
@@ -63,7 +64,7 @@ app.use(function (req, res, next) {
 
 });
 
-const ShoeApi = require('./shoe_api.js');
+const ShoeApi = require('./services/shoe_api.js');
 const shoeApi = ShoeApi(pool);
 
 app.get('/', async function (req, res, next) {
