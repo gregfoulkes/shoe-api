@@ -116,7 +116,8 @@ function getId(id){
     .then(res => {
 
   insertBasketDataElem.innerHTML = shoeBasketTemplate({
-    items: res.data.items
+    items: res.data.items,
+    total:res.data.total
   });
 
 

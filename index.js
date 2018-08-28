@@ -170,7 +170,8 @@ app.get('/api/shoes/sold/:id', async function (req, res) {
         const basket = await shoeBasketApi.returnBasket()
         res.json({
             status: 'success',
-            items: basket
+            items: basket,
+            total:basket.total
         });
 
     } catch (err) {
