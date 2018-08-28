@@ -96,15 +96,6 @@ searchBtn.addEventListener('click', function(){
 
 });
 
-// function getId(id) {
-//   callFunction.addBasket(id)
-//   callFunction.returnBasket();
-//   callFunction.shoe();
-//   listDisplay()
-
-//   basketDisplay()
-// }
-
 addBtn.addEventListener('click', function () {
 
   let shoe = {
@@ -125,28 +116,28 @@ function getId(id){
     .then(res => {
 
   insertBasketDataElem.innerHTML = shoeBasketTemplate({
-    items: res.data.data
+    items: res.data.items
   });
 
 
   })
 }
 
-function basketDisplay() {
-callFunction.returnBasket();
+// function basketDisplay() {
+// callFunction.returnBasket();
 
-  var basket = callFunction.returnBasket()
-  insertBasketDataElem.innerHTML = shoeBasketTemplate({
-    items: basket,
-  });
+//   var basket = callFunction.returnBasket()
+//   insertBasketDataElem.innerHTML = shoeBasketTemplate({
+//     items: basket,
+//   });
 
-  var cartTotalHTML = shoeCartTemplate({
-    total: callFunction.total()
-  });
+//   var cartTotalHTML = shoeCartTemplate({
+//     total: callFunction.total()
+//   });
 
-  insertCartDataElem.innerHTML = cartTotalHTML;
+//   insertCartDataElem.innerHTML = cartTotalHTML;
 
-}
+// }
 
 
 

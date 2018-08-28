@@ -1,7 +1,9 @@
 module.exports = function (pool) {
 
     async function addItemToBasket(id) {
-        if (id !== '') {
+       
+        if (id) {
+            id = Number(id);
             let findID = await pool.query("SELECT * FROM shoes WHERE id=$1", [id]);
             let price = findID.rows[0].price;
             if (findID.rowCount > 0) {
@@ -25,7 +27,7 @@ module.exports = function (pool) {
         }
 
     }
-
+    
     async function deleteFromCart() {
         let findId = await pool.query("SELECT * FROM basket");
         if (findId.rowCount > 0) {
@@ -55,6 +57,7 @@ module.exports = function (pool) {
         }, 0);
         return cartTotal;
     }
+    'join shoes on cart.shoe_id=shoes.id'
 
     async function returnBasket() {
         let basket = await pool.query('select * from basket')

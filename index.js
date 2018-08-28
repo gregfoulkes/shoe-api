@@ -66,7 +66,7 @@ app.use(function (req, res, next) {
 
 const ShoeApi = require('./services/shoe_api.js');
 const ShoeBasketApi = require('./services/shoe_api_basket.js');
-const shoeBasketApi = ShoeBasketApi()
+const shoeBasketApi = ShoeBasketApi(pool)
 const shoeApi = ShoeApi(pool);
 
 app.get('/', async function (req, res, next) {
@@ -161,16 +161,16 @@ app.post('/api/shoes', async function (req, res) {
     }
 })
 
-app.post('/api/shoes/sold/:id', async function (req, res) {
+app.get('/api/shoes/sold/:id', async function (req, res) {
     try {
         
         //let basketId = req.params.id;
         console.log(req.params.id)
-        await shoeBasketApi.addItemToBasket(req.params);
+     await shoeBasketApi.addItemToBasket(req.params.id);
         const basket = await shoeBasketApi.returnBasket()
         res.json({
             status: 'success',
-            data: basket
+            items: basket
         });
 
     } catch (err) {

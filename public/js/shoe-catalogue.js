@@ -46,7 +46,7 @@ function ShoeCatalogueFunction() {
 
  function addToBasket(shoeId) {
     try {
-      const response = axios.post("/api/shoes/sold/" + shoeId);
+      const response = axios.get("/api/shoes/sold/" + shoeId);
       return response;
     } catch (error) {
       alert(error);
