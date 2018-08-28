@@ -47,7 +47,7 @@ module.exports = function (pool) {
     async function getTotal() {
         let result = await pool.query('SELECT * FROM basket');
         let cartTotal = 0.00;
-        if (result.rowCount < 0) {
+        if (result.rowCount <= 0) {
             return cartTotal;
         }
         let subtotals = result.rows.map(current => parseFloat(current.total))
@@ -57,12 +57,28 @@ module.exports = function (pool) {
         }, 0);
         return cartTotal;
     }
-    'join shoes on cart.shoe_id=shoes.id'
 
     async function returnBasket() {
-        let basket = await pool.query('select * from basket')
+        let basket = await pool.query(
+            `select * from basket 
+            join shoes on basket.shoe_id=shoes.id`)
+
+        let thisId = basket.rows[0].shoe_id
         let result = basket.rows
-        return result
+            let shoes =[]
+        for(shoe of result){
+            shoes.push({
+              id: basket.rows[0].shoe_id,
+              shoe_id: basket.rows[0].shoe_id,
+              color: shoe.color,
+              brand: shoe.brand,
+              price: shoe.price,
+              size: shoe.size,
+              qty: shoe.qty,
+              total: '700.00'
+            })
+          }
+        return shoes
     }
 
 

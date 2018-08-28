@@ -232,6 +232,15 @@ describe('Shoe Api shoe Functions', function() {
         assert.deepEqual(await shoeApi.getTotal(), 700.00)
       })
 
+      it('Should return a 0 total ', async function (){
+        let shoeApi = ShoeApiBasket(pool)
+        // let thisId = await pool.query('select id from shoes where color=$1',['black']);
+        // await shoeApi.addItemToBasket(thisId.rows[0].id)
+        // await shoeApi.addItemToBasket(thisId.rows[0].id)
+
+        assert.deepEqual(await shoeApi.getTotal(), 0.00)
+      })
+
       it('Should clear items from the shopping basket', async function (){
         let shoeApi = ShoeApiBasket(pool)
         let thisId = await pool.query('select id from shoes where color=$1',['black']);
@@ -246,6 +255,25 @@ describe('Shoe Api shoe Functions', function() {
 
 
         assert.deepEqual(await shoeApi.deleteFromCart(), 'shopping cart is empty!!!')
+      })
+
+      it('Should return the list of items from the shopping basket', async function (){
+        let shoeApi = ShoeApiBasket(pool)
+        let thisId = await pool.query('select id from shoes where color=$1',['black']);
+        await shoeApi.addItemToBasket(thisId.rows[0].id)
+        await shoeApi.addItemToBasket(thisId.rows[0].id)
+        let theShoe = await shoeApi.returnBasket()
+
+        assert.deepEqual(theShoe, [{
+          id: thisId.rows[0].id,
+          shoe_id: thisId.rows[0].id,
+          color: 'black',
+          brand: 'Nike',
+          size: 5,
+          price: 350,
+          qty: 2,
+          total: '700.00'
+        }])
       })
     
     
