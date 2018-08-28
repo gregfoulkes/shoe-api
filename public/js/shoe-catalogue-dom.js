@@ -10,7 +10,14 @@ var displayQty = document.querySelector('.displayQty');
 var displayFilter = document.querySelector('.displayFilter');
 var displaySize = document.querySelector('.displaySize');
 var displayColor = document.querySelector('.displayColor')
-
+2
+1
+4
+4
+6
+6
+3
+3
 //add elements
 var getBrand = document.querySelector('.getBrand');
 var getColor = document.querySelector('.getColor');
@@ -53,13 +60,23 @@ function refreshShoes(){
   })
 }
 
-window.addEventListener('DOMContentLoaded', function () {
-  apiRoutes.shoeList()
-    .then(res => {
-      insertShoeDataElem.innerHTML = shoeFilterTemplate({
-        shoeList: res.data.data
-      })
+function refreshBasket(){
+
+  apiRoutes.getBasket()
+  .then(res => {
+    console.log(res.data.items)
+    insertBasketDataElem.innerHTML = shoeBasketTemplate({
+      items: res.data.items
     })
+  })
+
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+
+  refreshShoes()
+  refreshBasket()
+
 })
 
 searchBtn.addEventListener('click', function(){
@@ -93,7 +110,6 @@ searchBtn.addEventListener('click', function(){
   })
 
   }
-
 });
 
 addBtn.addEventListener('click', function () {
@@ -108,21 +124,22 @@ addBtn.addEventListener('click', function () {
   apiRoutes.addShoe(shoe);
 
   refreshShoes()
-
 });
 
-function getId(id){
-  apiRoutes.addToBasket(id)
-    .then(res => {
+  function getId(id){
+    apiRoutes.addToBasket(id)
+      .then(res => {
 
-  insertBasketDataElem.innerHTML = shoeBasketTemplate({
-    items: res.data.items,
-    total:res.data.total
-  });
+    insertBasketDataElem.innerHTML = shoeBasketTemplate({
+      items: res.data.items,
+      total:res.data.total
+      });
+    })
 
+    refreshShoes()
+    refreshBasket()
+  }
 
-  })
-}
 
 // function basketDisplay() {
 // callFunction.returnBasket();

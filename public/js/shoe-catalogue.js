@@ -71,6 +71,15 @@ function ShoeCatalogueFunction() {
     }  
   }
 
+  function getBasket(){
+    try {
+      const response = axios.get("/api/basket");
+      return response;
+    } catch (error) {
+      alert(error);
+    } 
+  }
+
   return {
     shoeList,
     getShoesByBrand,
@@ -80,6 +89,7 @@ function ShoeCatalogueFunction() {
     addShoe,
     addToBasket,
     clearShoppingBasket,
+    getBasket
   }
 
   }

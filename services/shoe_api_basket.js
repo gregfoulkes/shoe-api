@@ -75,7 +75,7 @@ module.exports = function (pool) {
               price: shoe.price,
               size: shoe.size,
               qty: shoe.qty,
-              total: '700.00'
+              total: shoe.total
             })
           }
         return shoes

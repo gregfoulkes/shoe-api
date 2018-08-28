@@ -43,21 +43,6 @@ const pool = new Pool({
     ssl: useSSL
 })
 
-// app.engine('handlebars', exphbs({
-//     defaultLayout: 'main',
-//     helpers: {
-//       flashMessage: function () {
-//         if (this.messages.info == "Shift(s) successfully added!") {
-//           return "success";
-//         } else {
-//           return "failure";
-//         }
-//       }
-//     }
-//   }));
-  
-// app.set('view engine', 'handlebars');
-
 app.use(function (req, res, next) {
 
     next();
@@ -165,13 +150,13 @@ app.get('/api/shoes/sold/:id', async function (req, res) {
     try {
         
         //let basketId = req.params.id;
-        console.log(req.params.id)
-     await shoeBasketApi.addItemToBasket(req.params.id);
+        //console.log(req.params.id)
+        await shoeBasketApi.addItemToBasket(req.params.id);
         const basket = await shoeBasketApi.returnBasket()
         res.json({
             status: 'success',
             items: basket,
-            total:basket.total
+            // total:basket.total
         });
 
     } catch (err) {
@@ -182,6 +167,26 @@ app.get('/api/shoes/sold/:id', async function (req, res) {
     }
 })
 
+app.get('api/basket', async function(req,res){
+    try {
+
+        const basket = await shoeBasketApi.returnBasket()
+        console.log(basket)
+
+        res.json({
+            status: 'success',
+            items: basket
+            // total:basket.total
+        });
+
+    } catch (err) {
+        res.json({
+            status: 'error',
+            error: err.stack
+        });
+    }
+
+})
 //start the server
 let PORT = process.env.PORT || 6008;
 
