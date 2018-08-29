@@ -58,6 +58,8 @@ function refreshBasket() {
   shoeApi.getBasket()
     .then(res => {
       let result = res.data;
+      let resultTotal = result.total
+      let fixedResultTotal = resultTotal.toFixed(2)
 
       if (result.status === 'error') {
         alert(result.error);
@@ -68,7 +70,7 @@ function refreshBasket() {
       })
 
       insertCartDataElem.innerHTML = shoeCartTemplate({
-        grandTotal: result.total
+        grandTotal:fixedResultTotal
       })
     })
     .catch(function (err) {
@@ -147,7 +149,8 @@ function clearBasket() {
     .then(res => {
 
       let result = res.data;
-
+      let resultTotal = result.total
+      let fixedResultTotal = resultTotal.toFixed(2)
       if (result.status === 'error') {
         alert(result.error);
       }
@@ -157,7 +160,7 @@ function clearBasket() {
       });
 
       insertCartDataElem.innerHTML = shoeCartTemplate({
-        total: res.data.total
+        grandTotal: fixedResultTotal
       })
     })
     .catch(function (err) {

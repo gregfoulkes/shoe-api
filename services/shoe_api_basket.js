@@ -1,7 +1,7 @@
 module.exports = function (pool) {
 
     async function addItemToBasket(id) {
-       
+
         if (id) {
             id = Number(id);
             let findID = await pool.query("SELECT * FROM shoes WHERE id=$1", [id]);
@@ -16,7 +16,7 @@ module.exports = function (pool) {
                     }
                 } else {
                     await pool.query(`INSERT INTO basket(qty,shoe_id, price, total) 
-                        values($1,$2,$3,$4)`, [1, id, price,price]);
+                        values($1,$2,$3,$4)`, [1, id, price, price]);
                     await pool.query(`UPDATE shoes SET in_stock=(in_stock-1) where id=$1 and in_stock >0`, [id]);
                     return true;
                 }
@@ -27,7 +27,7 @@ module.exports = function (pool) {
         }
 
     }
-    
+
     async function deleteFromCart() {
         let findId = await pool.query("SELECT * FROM basket");
         if (findId.rowCount > 0) {
@@ -63,22 +63,24 @@ module.exports = function (pool) {
             `select * from basket 
             join shoes on basket.shoe_id=shoes.id`)
 
-        let thisId = basket.rows[0].shoe_id
-        let result = basket.rows
-            let shoes =[]
-        for(shoe of result){
-            shoes.push({
-              id: basket.rows[0].shoe_id,
-              shoe_id: basket.rows[0].shoe_id,
-              color: shoe.color,
-              brand: shoe.brand,
-              price: shoe.price,
-              size: shoe.size,
-              qty: shoe.qty,
-              total: shoe.total
-            })
-          }
-        return shoes
+        let shoes = []
+        if (basket.rowCount > 0) {
+            let thisId = basket.rows[0].shoe_id
+            let result = basket.rows
+            for (shoe of result) {
+                shoes.push({
+                    id: basket.rows[0].shoe_id,
+                    shoe_id: basket.rows[0].shoe_id,
+                    color: shoe.color,
+                    brand: shoe.brand,
+                    price: shoe.price,
+                    size: shoe.size,
+                    qty: shoe.qty,
+                    total: shoe.total
+                })
+            }
+            return shoes
+        }
     }
 
     return {
@@ -90,4 +92,3 @@ module.exports = function (pool) {
     }
 
 }
-

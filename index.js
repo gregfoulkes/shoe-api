@@ -193,13 +193,15 @@ app.post('/api/clear', async function (req, res) {
     try {
         //displayBasketList
         await shoeBasketApi.deleteFromCart()
-        let basket = shoeBasketApi.returnBasket()
+        //let basket = shoeBasketApi.returnBasket()
+        const total = await shoeBasketApi.getTotal();
+
        // console.log(basket)
 
         res.json({
             status: 'success',
-            items: basket
-            // total:basket.total
+            //items: basket,
+            total: total
         });
 
     } catch (err) {
