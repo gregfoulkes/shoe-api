@@ -151,14 +151,16 @@ function clearBasket() {
       if (result.status === 'error') {
         alert(result.error);
       }
+      refreshShoes()
+      refreshBasket()
 
-      insertBasketDataElem.innerHTML = shoeBasketTemplate({
-        items: result.items
-      });
+      // insertBasketDataElem.innerHTML = shoeBasketTemplate({
+      //   items: result.items
+      // });
 
-      insertCartDataElem.innerHTML = shoeCartTemplate({
-        grandTotal: fixedResultTotal
-      })
+      // insertCartDataElem.innerHTML = shoeCartTemplate({
+      //   grandTotal: fixedResultTotal
+      // })
     })
     .catch(function (err) {
       alert(err.stack);
