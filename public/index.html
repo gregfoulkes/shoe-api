@@ -41,6 +41,8 @@
         <tr><td><strong>Color:</strong></td><td>{{color}}</td></tr>
         <tr><td><strong>Price:</strong></td><td> {{price}}</td></tr>
         <tr><td><strong>Qty:</strong></td><td>{{qty}}</td></tr>
+        <tr><td><strong>Total:</strong></td><td>{{total}}</td></tr>
+
         <tr>
         </tr>
       </table>
@@ -51,7 +53,7 @@
   </script>
 
   <script type="text/x-template" class='cartDisplayTemplate'>
-    <span style="margin: 1rem; padding: 20px;">Cart Total:<span style="margin: 1rem;"> R {{total}}</span> </span>
+    <span style="margin: 1rem; padding: 20px;">Cart Total:<span style="margin: 1rem;"> R {{grandTotal}}</span> </span>
     <td><button class ='clearBasketBtn' onclick='clearBasket()'>Clear Cart</button></td>
 
   </script>
@@ -143,15 +145,6 @@
           <option class="brand" value="All Stars">All Stars</option>
           <option class="brand" value="Lacoste">LaCoste</option>
         </select>
-
-        <!-- <select class="colorSelect" name="">
-          <option class="color"  ></option>
-          <option class="color" value="blue">Blue</option>
-          <option class="color" value="red">Red</option>
-          <option class="color" value="black">Black</option>
-          <option class="color" value="white">White</option>
-          <option class="color" value="green">Green</option>
-        </select> -->
 
         <select class="sizeSelect" name="">
           <option class="size"  ></option>

@@ -189,12 +189,12 @@ app.get('/api/basket', async function (req, res) {
 
 })
 
-app.get('api/clear', async function (req, res) {
+app.post('/api/clear', async function (req, res) {
     try {
-        displayBasketList
+        //displayBasketList
         await shoeBasketApi.deleteFromCart()
-        let basket = returnBasket()
-        console.log(basket)
+        let basket = shoeBasketApi.returnBasket()
+       // console.log(basket)
 
         res.json({
             status: 'success',

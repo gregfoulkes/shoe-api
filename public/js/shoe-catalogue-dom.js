@@ -63,17 +63,12 @@ function refreshBasket() {
         alert(result.error);
       }
 
-      // console.log(result.data.items);
-      // console.log(result.data.total);
-
-      console.log(result.total);
-
       insertBasketDataElem.innerHTML = shoeBasketTemplate({
         items: result.items
       })
 
       insertCartDataElem.innerHTML = shoeCartTemplate({
-        total: result.total
+        grandTotal: result.total
       })
     })
     .catch(function (err) {
@@ -83,13 +78,6 @@ function refreshBasket() {
 }
 
 window.addEventListener('DOMContentLoaded', function () {
-//   shoeApi.getBasket()
-// .then(res => {
-//   insertCartDataElem.innerHTML = shoeCartTemplate({
-//     total: res.data.total
-//   })
-// })
- 
 
   refreshShoes()
   refreshBasket()
@@ -139,33 +127,40 @@ addBtn.addEventListener('click', function () {
   refreshShoes()
 });
 
-  function getId(id) {
-    shoeApi.addToBasket(id)
-      .then(res => {
+function getId(id) {
+  shoeApi.addToBasket(id)
+    .then(res => {
 
-        insertBasketDataElem.innerHTML = shoeBasketTemplate({
-          items: res.data.items,
-        });
+      insertBasketDataElem.innerHTML = shoeBasketTemplate({
+        items: res.data.items,
+      });
 
-      //   insertCartDataElem.innerHTML = shoeCartTemplate({
-      //     total: res.data.total
-      //   })
-      // })
 
-     refreshShoes()
-     refreshBasket()
-  })
-  }
- function clearBasket() {
-  shoeApi.clearShoppingBasket()
-  .then(res => {
 
-    insertBasketDataElem.innerHTML = shoeBasketTemplate({
-      items: res.data.items,
-    });
-
-    insertCartDataElem.innerHTML = shoeCartTemplate({
-      total: res.data.total
+      refreshShoes()
+      refreshBasket()
     })
-  })
- }
+}
+
+function clearBasket() {
+  shoeApi.clearShoppingBasket()
+    .then(res => {
+
+      let result = res.data;
+
+      if (result.status === 'error') {
+        alert(result.error);
+      }
+
+      insertBasketDataElem.innerHTML = shoeBasketTemplate({
+        items: res.data.items,
+      });
+
+      insertCartDataElem.innerHTML = shoeCartTemplate({
+        total: res.data.total
+      })
+    })
+    .catch(function (err) {
+      alert(err.stack);
+    });
+}
