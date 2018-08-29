@@ -77,7 +77,7 @@ app.get('/api/shoes/brand/:brandname', async function (req, res) {
     let brandName = req.params.brandname
     try {
         const shoeByBrand = await shoeApi.getBrandQuery(brandName);
-        console.log(shoeByBrand)
+        //console.log(shoeByBrand)
         res.json({
             status: 'success',
             data: shoeByBrand
@@ -94,7 +94,7 @@ app.get('/api/shoes/size/:size', async function (req, res) {
     let shoeSize = req.params.size
     try {
         const shoeBySize = await shoeApi.getSizeQuery(shoeSize);
-        console.log(shoeBySize)
+        //console.log(shoeBySize)
         res.json({
             status: 'success',
             data: shoeBySize
@@ -133,7 +133,7 @@ app.post('/api/shoes', async function (req, res) {
         await shoeApi.addShoeToList(req.body);
         const shoes = await shoeApi.shoeList();
 
-        console.log(req.body)
+       // console.log(req.body)
         res.json({
             status: 'success',
             data: shoes
@@ -172,7 +172,7 @@ app.get('/api/basket', async function (req, res) {
 
         const basket = await shoeBasketApi.returnBasket();
         const total = await shoeBasketApi.getTotal();
-        console.log(basket)
+        //console.log(basket)
 
         res.json({
             status: 'success',
@@ -193,14 +193,14 @@ app.post('/api/clear', async function (req, res) {
     try {
         //displayBasketList
         await shoeBasketApi.deleteFromCart()
-        //let basket = shoeBasketApi.returnBasket()
+        let basket = shoeBasketApi.returnBasket()
         const total = await shoeBasketApi.getTotal();
 
        // console.log(basket)
 
         res.json({
             status: 'success',
-            //items: basket,
+            items: basket,
             total: total
         });
 

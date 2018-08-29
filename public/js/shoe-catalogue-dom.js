@@ -1,5 +1,4 @@
 //filter selection
-//var All = document.querySelector('.All')
 var filterBrand = document.querySelector('.brandSelect');
 var filterColor = document.querySelector('.colorSelect');
 var filterSize = document.querySelector('.sizeSelect');
@@ -137,8 +136,6 @@ function getId(id) {
         items: res.data.items,
       });
 
-
-
       refreshShoes()
       refreshBasket()
     })
@@ -156,7 +153,7 @@ function clearBasket() {
       }
 
       insertBasketDataElem.innerHTML = shoeBasketTemplate({
-        items: res.data.items,
+        items: result.items
       });
 
       insertCartDataElem.innerHTML = shoeCartTemplate({
