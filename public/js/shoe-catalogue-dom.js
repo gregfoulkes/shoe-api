@@ -65,14 +65,18 @@ function refreshBasket() {
 
       // console.log(result.data.items);
       // console.log(result.data.total);
-      
-      console.log(result);
+
+      console.log(result.total);
 
       insertBasketDataElem.innerHTML = shoeBasketTemplate({
         items: result.items
       })
+
+      insertCartDataElem.innerHTML = shoeCartTemplate({
+        total: result.total
+      })
     })
-    .catch(function(err) {
+    .catch(function (err) {
       alert(err.stack);
     });
 
@@ -143,15 +147,15 @@ addBtn.addEventListener('click', function () {
           items: res.data.items,
         });
 
-        insertCartDataElem.innerHTML = shoeCartTemplate({
-          total: res.data.total
-        })
-      })
+      //   insertCartDataElem.innerHTML = shoeCartTemplate({
+      //     total: res.data.total
+      //   })
+      // })
 
-    // refreshShoes()
-    // refreshBasket()
+     refreshShoes()
+     refreshBasket()
+  })
   }
-
  function clearBasket() {
   shoeApi.clearShoppingBasket()
   .then(res => {

@@ -170,13 +170,14 @@ app.get('/api/shoes/sold/:id', async function (req, res) {
 app.get('/api/basket', async function (req, res) {
     try {
 
-        const basket = await shoeBasketApi.returnBasket()
+        const basket = await shoeBasketApi.returnBasket();
+        const total = await shoeBasketApi.getTotal();
         console.log(basket)
 
         res.json({
             status: 'success',
             items: basket,
-            total: basket.total
+            total: total
         });
 
     } catch (err) {
