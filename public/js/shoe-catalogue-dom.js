@@ -87,30 +87,31 @@ window.addEventListener('DOMContentLoaded', function () {
 
 searchBtn.addEventListener('click', function () {
 
-  if (filterBrand.value != '') {
-    shoeApi.getShoesByBrand(filterBrand.value)
-      .then(res => {
-        insertShoeDataElem.innerHTML = shoeFilterTemplate({
-          shoeList: res.data.data
-        });
-      })
-
-  } else if (filterSize.value != '') {
-    shoeApi.getShoesBySize(filterSize.value)
-      .then(res => {
-        insertShoeDataElem.innerHTML = shoeFilterTemplate({
-          shoeList: res.data.data
-        });
-      })
-
-  } else if (filterSize.value != '' && filterBrand.value != '') {
+  if (filterSize.value && filterBrand.value) {
     shoeApi.getShoesByBrandAndSize(filterSize.value, filterBrand.value)
       .then(res => {
         insertShoeDataElem.innerHTML = shoeFilterTemplate({
           shoeList: res.data.data
         });
       })
-
+      if (filterBrand.value) {
+        shoeApi.getShoesByBrand(filterBrand.value)
+          .then(res => {
+            insertShoeDataElem.innerHTML = shoeFilterTemplate({
+              shoeList: res.data.data
+            });
+          })
+          return
+      } else if (filterSize.value) {
+        shoeApi.getShoesBySize(filterSize.value)
+          .then(res => {
+            insertShoeDataElem.innerHTML = shoeFilterTemplate({
+              shoeList: res.data.data
+            });
+          })
+          return
+      }
+      return
   }
 });
 
@@ -123,18 +124,13 @@ addBtn.addEventListener('click', function () {
     price: parseFloat(getPrice.value),
     qty: Number(getQty.value)
   }
-  shoeApi.addShoe(shoe);
-
-  refreshShoes()
+  shoeApi.addShoe(shoe)
+  .then(refreshShoes());
 });
 
 function getId(id) {
   shoeApi.addToBasket(id)
     .then(res => {
-
-      insertBasketDataElem.innerHTML = shoeBasketTemplate({
-        items: res.data.items,
-      });
 
       refreshShoes()
       refreshBasket()
@@ -153,14 +149,6 @@ function clearBasket() {
       }
       refreshShoes()
       refreshBasket()
-
-      // insertBasketDataElem.innerHTML = shoeBasketTemplate({
-      //   items: result.items
-      // });
-
-      // insertCartDataElem.innerHTML = shoeCartTemplate({
-      //   grandTotal: fixedResultTotal
-      // })
     })
     .catch(function (err) {
       alert(err.stack);
