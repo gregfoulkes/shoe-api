@@ -81,8 +81,6 @@ module.exports = function (pool) {
         return shoes
     }
 
-
-
     return {
         addItemToBasket,
         deleteFromCart,

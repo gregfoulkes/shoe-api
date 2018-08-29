@@ -128,9 +128,9 @@ app.get('/api/shoes/brand/:brandname/size/:size	', async function (req, res) {
 })
 
 app.post('/api/shoes', async function (req, res) {
-    
+
     try {
-         await shoeApi.addShoeToList(req.body);
+        await shoeApi.addShoeToList(req.body);
         const shoes = await shoeApi.shoeList();
 
         console.log(req.body)
@@ -148,7 +148,7 @@ app.post('/api/shoes', async function (req, res) {
 
 app.get('/api/shoes/sold/:id', async function (req, res) {
     try {
-        
+
         //let basketId = req.params.id;
         //console.log(req.params.id)
         await shoeBasketApi.addItemToBasket(req.params.id);
@@ -156,7 +156,7 @@ app.get('/api/shoes/sold/:id', async function (req, res) {
         res.json({
             status: 'success',
             items: basket,
-            // total:basket.total
+            total: basket.total
         });
 
     } catch (err) {
@@ -167,10 +167,32 @@ app.get('/api/shoes/sold/:id', async function (req, res) {
     }
 })
 
-app.get('api/basket', async function(req,res){
+app.get('/api/basket', async function (req, res) {
     try {
 
         const basket = await shoeBasketApi.returnBasket()
+        console.log(basket)
+
+        res.json({
+            status: 'success',
+            items: basket,
+            total: basket.total
+        });
+
+    } catch (err) {
+        res.json({
+            status: 'error',
+            error: err.stack
+        });
+    }
+
+})
+
+app.get('api/clear', async function (req, res) {
+    try {
+        displayBasketList
+        await shoeBasketApi.deleteFromCart()
+        let basket = returnBasket()
         console.log(basket)
 
         res.json({
@@ -185,8 +207,8 @@ app.get('api/basket', async function(req,res){
             error: err.stack
         });
     }
-
 })
+
 //start the server
 let PORT = process.env.PORT || 6008;
 

@@ -1,5 +1,3 @@
-
-
 function ShoeCatalogueFunction() {
 
   function getShoesByBrand(brand) {
@@ -34,7 +32,7 @@ function ShoeCatalogueFunction() {
     }
   }
 
-   function addShoe(shoe) {
+  function addShoe(shoe) {
     try {
       const response = axios.post("/api/shoes/", shoe);
 
@@ -44,7 +42,7 @@ function ShoeCatalogueFunction() {
     }
   }
 
- function addToBasket(shoeId) {
+  function addToBasket(shoeId) {
     try {
       const response = axios.get("/api/shoes/sold/" + shoeId);
       return response;
@@ -68,16 +66,16 @@ function ShoeCatalogueFunction() {
       return response;
     } catch (error) {
       alert(error);
-    }  
+    }
   }
 
-  function getBasket(){
+  function getBasket() {
     try {
       const response = axios.get("/api/basket");
       return response;
     } catch (error) {
       alert(error);
-    } 
+    }
   }
 
   return {
@@ -92,4 +90,4 @@ function ShoeCatalogueFunction() {
     getBasket
   }
 
-  }
+}

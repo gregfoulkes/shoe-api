@@ -10,14 +10,7 @@ var displayQty = document.querySelector('.displayQty');
 var displayFilter = document.querySelector('.displayFilter');
 var displaySize = document.querySelector('.displaySize');
 var displayColor = document.querySelector('.displayColor')
-2
-1
-4
-4
-6
-6
-3
-3
+
 //add elements
 var getBrand = document.querySelector('.getBrand');
 var getColor = document.querySelector('.getColor');
@@ -49,65 +42,81 @@ var shoeCartTemplateSource = document.querySelector('.cartDisplayTemplate').inne
 var shoeCartTemplate = Handlebars.compile(shoeCartTemplateSource);
 var insertCartDataElem = document.querySelector(".displayCartTotals");
 
-var apiRoutes = ShoeCatalogueFunction()
+var shoeApi = ShoeCatalogueFunction()
 
-function refreshShoes(){
-  apiRoutes.shoeList()
-  .then(res => {
-    insertShoeDataElem.innerHTML = shoeFilterTemplate({
-      shoeList: res.data.data
+function refreshShoes() {
+  shoeApi.shoeList()
+    .then(res => {
+      insertShoeDataElem.innerHTML = shoeFilterTemplate({
+        shoeList: res.data.data
+      })
     })
-  })
 }
 
-function refreshBasket(){
+function refreshBasket() {
 
-  apiRoutes.getBasket()
-  .then(res => {
-    console.log(res.data.items)
-    insertBasketDataElem.innerHTML = shoeBasketTemplate({
-      items: res.data.items
+  shoeApi.getBasket()
+    .then(res => {
+      let result = res.data;
+
+      if (result.status === 'error') {
+        alert(result.error);
+      }
+
+      // console.log(result.data.items);
+      // console.log(result.data.total);
+      
+      console.log(result);
+
+      insertBasketDataElem.innerHTML = shoeBasketTemplate({
+        items: result.items
+      })
     })
-  })
+    .catch(function(err) {
+      alert(err.stack);
+    });
 
 }
 
 window.addEventListener('DOMContentLoaded', function () {
+//   shoeApi.getBasket()
+// .then(res => {
+//   insertCartDataElem.innerHTML = shoeCartTemplate({
+//     total: res.data.total
+//   })
+// })
+ 
 
   refreshShoes()
   refreshBasket()
 
 })
 
-searchBtn.addEventListener('click', function(){
+searchBtn.addEventListener('click', function () {
 
-  if(filterBrand.value != ''){
-    apiRoutes.getShoesByBrand(filterBrand.value)
-  .then(res => {
-    insertShoeDataElem.innerHTML = shoeFilterTemplate({
-      shoeList:res.data.data
-    });
-  })
+  if (filterBrand.value != '') {
+    shoeApi.getShoesByBrand(filterBrand.value)
+      .then(res => {
+        insertShoeDataElem.innerHTML = shoeFilterTemplate({
+          shoeList: res.data.data
+        });
+      })
 
-  }
+  } else if (filterSize.value != '') {
+    shoeApi.getShoesBySize(filterSize.value)
+      .then(res => {
+        insertShoeDataElem.innerHTML = shoeFilterTemplate({
+          shoeList: res.data.data
+        });
+      })
 
-  else if(filterSize.value != ''){
-    apiRoutes.getShoesBySize(filterSize.value)
-  .then(res => {
-    insertShoeDataElem.innerHTML = shoeFilterTemplate({
-      shoeList:res.data.data
-    });
-  })
-
-  }
-
-  else if(filterSize.value != '' && filterBrand.value != ''){
-    apiRoutes.getShoesByBrandAndSize(filterSize.value,filterBrand.value)
-  .then(res => {
-    insertShoeDataElem.innerHTML = shoeFilterTemplate({
-      shoeList:res.data.data
-    });
-  })
+  } else if (filterSize.value != '' && filterBrand.value != '') {
+    shoeApi.getShoesByBrandAndSize(filterSize.value, filterBrand.value)
+      .then(res => {
+        insertShoeDataElem.innerHTML = shoeFilterTemplate({
+          shoeList: res.data.data
+        });
+      })
 
   }
 });
@@ -121,63 +130,38 @@ addBtn.addEventListener('click', function () {
     price: parseFloat(getPrice.value),
     qty: Number(getQty.value)
   }
-  apiRoutes.addShoe(shoe);
+  shoeApi.addShoe(shoe);
 
   refreshShoes()
 });
 
-  function getId(id){
-    apiRoutes.addToBasket(id)
+  function getId(id) {
+    shoeApi.addToBasket(id)
       .then(res => {
+
+        insertBasketDataElem.innerHTML = shoeBasketTemplate({
+          items: res.data.items,
+        });
+
+        insertCartDataElem.innerHTML = shoeCartTemplate({
+          total: res.data.total
+        })
+      })
+
+    // refreshShoes()
+    // refreshBasket()
+  }
+
+ function clearBasket() {
+  shoeApi.clearShoppingBasket()
+  .then(res => {
 
     insertBasketDataElem.innerHTML = shoeBasketTemplate({
       items: res.data.items,
-      total:res.data.total
-      });
+    });
+
+    insertCartDataElem.innerHTML = shoeCartTemplate({
+      total: res.data.total
     })
-
-    refreshShoes()
-    refreshBasket()
-  }
-
-
-// function basketDisplay() {
-// callFunction.returnBasket();
-
-//   var basket = callFunction.returnBasket()
-//   insertBasketDataElem.innerHTML = shoeBasketTemplate({
-//     items: basket,
-//   });
-
-//   var cartTotalHTML = shoeCartTemplate({
-//     total: callFunction.total()
-//   });
-
-//   insertCartDataElem.innerHTML = cartTotalHTML;
-
-// }
-
-
-
-// function clearBasket() {
-//   callFunction.clearBasket();
-//   localStorage.setItem('shoeList', JSON.stringify(callFunction.returnBasket()));
-//   localStorage.removeItem('basket');
-//   // force reload to update
-//   listDisplay()
-
-//   basketDisplay();
-// }
-
-
-
-//   callFunction.returnBasket();
-
-//   ;
-//   basketDisplay()
-//   listDisplay()
-
-//   })
-
-
-
+  })
+ }
