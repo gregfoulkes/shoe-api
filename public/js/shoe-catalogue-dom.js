@@ -87,33 +87,42 @@ window.addEventListener('DOMContentLoaded', function () {
 
 searchBtn.addEventListener('click', function () {
 
-  if (filterSize.value && filterBrand.value) {
-    shoeApi.getShoesByBrandAndSize(filterSize.value, filterBrand.value)
+  let size = Number(filterSize.value)
+
+  if (size && filterBrand.value) {
+    shoeApi.getShoesByBrandAndSize( filterBrand.value,size)
       .then(res => {
         insertShoeDataElem.innerHTML = shoeFilterTemplate({
           shoeList: res.data.data
         });
+        
       })
-      if (filterBrand.value) {
-        shoeApi.getShoesByBrand(filterBrand.value)
-          .then(res => {
-            insertShoeDataElem.innerHTML = shoeFilterTemplate({
-              shoeList: res.data.data
-            });
-          })
-          return
-      } else if (filterSize.value) {
-        shoeApi.getShoesBySize(filterSize.value)
-          .then(res => {
-            insertShoeDataElem.innerHTML = shoeFilterTemplate({
-              shoeList: res.data.data
-            });
-          })
-          return
-      }
-      return
-  }
+      .catch(function (err) {
+        alert(err.stack);
+      });
+    }else{
+        if (filterBrand.value) {
+          shoeApi.getShoesByBrand(filterBrand.value)
+            .then(res => {
+              insertShoeDataElem.innerHTML = shoeFilterTemplate({
+                shoeList: res.data.data
+              });
+            })
+            return
+        } else if (filterSize.value) {
+          shoeApi.getShoesBySize(filterSize.value)
+            .then(res => {
+              insertShoeDataElem.innerHTML = shoeFilterTemplate({
+                shoeList: res.data.data
+              });
+            })
+            return
+        }
+    return
+       }  
+      
 });
+
 
 addBtn.addEventListener('click', function () {
 

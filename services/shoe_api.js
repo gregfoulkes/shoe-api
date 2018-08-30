@@ -33,11 +33,10 @@ module.exports = function(pool)  {
     }
 
     async function getBrandandSizeQuery(brand, size) {
-        let shoeBrandSize = await pool.query('select color,brand,price,size, in_stock from shoes where brand=$1 or size=$2 ; ', [brand, size])
+        let shoeBrandSize = await pool.query('select * from shoes where brand=$1 and size=$2 ; ', [brand, size])
         let result = shoeBrandSize.rows
         return result
     }
-
 
     async function addShoeToList(params) {
 
@@ -62,7 +61,6 @@ module.exports = function(pool)  {
         let shoes = await pool.query('select * from shoes')
         return shoes.rows;
     }
-
 
     return {
         addShoes,

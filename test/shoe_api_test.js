@@ -103,21 +103,18 @@ describe('Shoe Api shoe Functions', function() {
       //await shoeApi.addShoes()
       let shoes = await shoeApi.getBrandandSizeQuery('Adidas', 4)
       // console.log(shoes.rows)
-      assert.deepEqual(shoes, [{
-          color: 'blue',
-          brand: "Adidas",
-          price: 275,
-          size: 6,
-          in_stock: 3
-        },
-        {
-          color: 'blue',
-          brand: "New Balance",
-          price: 320,
-          size: 4,
-          in_stock: 7
-        }
-      ])
+      shoeList =[]
+      for(shoe in shoes){
+        shoeList.push({
+          color: shoe.color,
+          brand: shoe.brand,
+          price: shoe.price,
+          size: shoe.size,
+          in_stock:4
+  
+        })
+      }
+      assert.deepEqual(shoes, shoeList)
     })
 
     it('Should add a shoe to list of all the shoes', async function(){

@@ -107,14 +107,14 @@ app.get('/api/shoes/size/:size', async function (req, res) {
     }
 })
 
-app.get('/api/shoes/brand/:brandname/size/:size	', async function (req, res) {
+app.get('/api/shoes/brand/:brand/size/:size', async function (req, res) {
     let shoeSize = req.params.size
     let shoeBrand = req.params.brand
 
     try {
         const shoeByBrandAndSize = await shoeApi.getBrandandSizeQuery(shoeBrand, shoeSize);
 
-        //console.log(shoeBySize)
+        console.log(shoeByBrandAndSize)
         res.json({
             status: 'success',
             data: shoeByBrandAndSize
