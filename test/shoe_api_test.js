@@ -8,23 +8,6 @@ const Connection = require('../config/database_connection.js')
 const pool = Connection()
 
 
-
-// var postgres = require('pg')
-
-// const Pool = postgres.Pool
-
-// let useSSL = false;
-// if(process.env.DATABASE_URL){
-//   useSSL = true;
-// }
-
-// const connectionString = process.env.DATABASE_URL || 'postgresql://coder:1234@localhost:5432/shoe_api_test'
-
-// const pool = new Pool({
-//   connectionString,
-//   ssl:useSSL
-// }) 
-
 describe('Shoe Api shoe Functions', function() {
 
   beforeEach(async function() {
@@ -278,7 +261,15 @@ describe('Shoe Api shoe Functions', function() {
           total: '700.00'
         }])
       })
-    
+    describe('Database Configuration', function(){
+
+      it('Should parse the database configuration and return pool', function(){
+        let result = Connection()
+        assert.equal(pool, pool)
+
+      })
+
+    })
     
       after(async function () {
         await pool.end();
