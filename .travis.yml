@@ -10,11 +10,11 @@ before_script:
   - psql -c 'create database  shoe_api_test;' -U postgres
   - psql -U postgres -d shoe_api_test -a -f sql_scripts/shoe_api_tables.sql
 
-install:
-  - npm install
+# install:
+#   - npm install
  
-  script:
-    -npm start index.js
+#   script:
+#     -npm start index.js
 
 addons:
     apt:
