@@ -1,10 +1,13 @@
 language: node_js
 
 env:
+  -npm start
     - node index.js
      - DB=postgresql://postgres@localhost:5432/shoe_api_test
 node_js:
         - "8.9.4"
+        #   script:
+#     -npm start index.js
 
 before_script:
   - psql -c 'create database  shoe_api_test;' -U postgres
@@ -13,8 +16,7 @@ before_script:
 # install:
 #   - npm install
  
-#   script:
-#     -npm start index.js
+
 
 addons:
     apt:
