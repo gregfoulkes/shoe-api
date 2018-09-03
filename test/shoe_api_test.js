@@ -3,7 +3,7 @@ const ShoeApiBasket = require('../services/shoe_api_basket.js');
 
 let assert = require("assert");
 
-const Connection = require('../config/database_connection.js')
+const Connection = require('../config/test_database_connection.js')
 
 const pool = Connection()
 
@@ -264,7 +264,7 @@ describe('Shoe Api shoe Functions', function() {
     describe('Database Configuration', function(){
 
       it('Should parse the database configuration and return pool', function(){
-        let result = Connection()
+        
         assert.equal(pool, pool)
 
       })
