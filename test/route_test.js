@@ -1,6 +1,14 @@
 let assert = require("assert");
 
-const request = require('supertest');
+// const request = require('supertest');
+
+var app = require('../server.js');
+const ShoeRoutes = require('../routes/shoe-routes.js')
+// const BasketRoutes = require('./routes/shoe-basket-routes.js')
+var chai = require('chai');
+var request = require('supertest');
+
+var expect = chai.expect;
 // var express = require('express');
 
 // const BASE_URL = express();
@@ -21,19 +29,34 @@ const result = {
             ]
         }
 
+describe('API Tests', function () {
+    it('should return version number', function (done) {
+        request(app)
+            .get('/api')
+            .end(function (err, res) {
+                expect(res.body.version).to.be.ok;
+                expect(res.statusCode).to.be.equal(200);
+                done();
+            });
+    });
+});
 
 describe('Shoe Api Routes', function () {
 
     it(' get all shoes and respond with json', function () {
 
-        request(baseURL)
+        request(ShoeRoutes)
             .get('/api/shoes')
             .set('Accept', 'application/json')
-            .expect(200)
-            .then(result =>{
-            assert.equal(result.body.status,'success');
+            //.expect(200)
+            .end(function (err, res) {
+            expect(res.status).to.be.equal(200);
+            expect(res.body.version).to.be.ok;
+
+            // assert.equal(res.body.status,'success');
             }) 
     });
+
 
     it('add shoe and respond with json', function () {
         let newShoe = {
@@ -43,7 +66,7 @@ describe('Shoe Api Routes', function () {
             quantity: 2,
             price: 850
         }
-        request(baseURL)
+        request(ShoeRoutes)
             .post('/api/shoes')
             .send(newShoe)
             .set('Accept', 'application/json')
@@ -58,7 +81,7 @@ describe('Shoe Api Routes', function () {
 
     it(' get shoe by size and respond with json', function () {
         let size = 6
-        request(baseURL)
+        request(ShoeRoutes)
             .get('/api/shoes/size/' + size)
             .set('Accept', 'application/json')
             .expect(200)
@@ -71,7 +94,7 @@ describe('Shoe Api Routes', function () {
 
     it(' get shoe by brand and respond with json', function () {
         let brand = 'Nike'
-        request(baseURL)
+        request(ShoeRoutes)
             .get('/api/shoes/brand/' + brand)
             .set('Accept', 'application/json')
             .expect(200)
@@ -84,7 +107,7 @@ describe('Shoe Api Routes', function () {
 
     it(' get shoe by brand and size and respond with json', function () {
        let size = 5
-        request(baseURL)
+        request(ShoeRoutes)
             .get('/api/shoes/brand/Nike/size/5')
             .set('Accept', 'application/json')
             .expect(200)
@@ -106,7 +129,7 @@ describe('Shoe Api Routes', function () {
 
             let id = 5
 
-            request(baseURL)
+            request(ShoeRoutes)
                 .get("/api/shoes/sold/" + id)
                 .set('Accept', 'application/json')
                 .expect(200)
@@ -117,7 +140,7 @@ describe('Shoe Api Routes', function () {
 
         it('Return basket and respond with json', function () {
 
-            request(baseURL)
+            request(ShoeRoutes)
                 .get("/api/basket")
                 .set('Accept', 'application/json')
                 .expect(200)
@@ -127,8 +150,6 @@ describe('Shoe Api Routes', function () {
         });
 
         // after(async function () {
-        //     baseURL.end();
+        //     app.end();
         //   });
-
-    });
-
+ });
