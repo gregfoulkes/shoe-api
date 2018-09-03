@@ -3,6 +3,9 @@ let assert = require("assert");
 const request = require('supertest');
 
 const baseURL = process.env.BASE_URL || 'http://localhost:6008';
+// var express = require('express');
+
+// var baseURL = express();
 
 const result = {
             status: 'success',
