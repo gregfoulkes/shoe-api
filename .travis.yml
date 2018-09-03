@@ -14,8 +14,8 @@ install:
   - npm install
  
   script:
-    -npm start
-    
+    -npm start index.js
+
 addons:
     apt:
     packages:
