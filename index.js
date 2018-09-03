@@ -29,22 +29,6 @@ app.use(session({
 
 const Connection = require('./config/database_connection.js')
 
-//connect to postgres database
-// var postgres = require('pg')
-// const Pool = postgres.Pool
-
-// let useSSL = false;
-// if (process.env.DATABASE_URL) {
-//     useSSL = true;
-// }
-
-// const connectionString = process.env.DATABASE_URL || 'postgresql://coder:1234@localhost:5432/shoe_api'
-
-// const pool = new Pool({
-//     connectionString,
-//     ssl: useSSL
-// })
-
 app.use(function (req, res, next) {
 
     next();

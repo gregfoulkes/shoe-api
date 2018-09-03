@@ -3,21 +3,27 @@ const ShoeApiBasket = require('../services/shoe_api_basket.js');
 
 let assert = require("assert");
 
-var postgres = require('pg')
+const Connection = require('../config/database_connection.js')
 
-const Pool = postgres.Pool
+const pool = Connection()
 
-let useSSL = false;
-if(process.env.DATABASE_URL){
-  useSSL = true;
-}
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://coder:1234@localhost:5432/shoe_api_test'
 
-const pool = new Pool({
-  connectionString,
-  ssl:useSSL
-}) 
+// var postgres = require('pg')
+
+// const Pool = postgres.Pool
+
+// let useSSL = false;
+// if(process.env.DATABASE_URL){
+//   useSSL = true;
+// }
+
+// const connectionString = process.env.DATABASE_URL || 'postgresql://coder:1234@localhost:5432/shoe_api_test'
+
+// const pool = new Pool({
+//   connectionString,
+//   ssl:useSSL
+// }) 
 
 describe('Shoe Api shoe Functions', function() {
 
