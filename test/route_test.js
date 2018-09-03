@@ -4,7 +4,7 @@ let assert = require("assert");
 
 var app = require('../server.js');
 const ShoeRoutes = require('../routes/shoe-routes.js')
-// const BasketRoutes = require('./routes/shoe-basket-routes.js')
+const BasketRoutes = require('../routes/shoe-basket-routes.js')
 var chai = require('chai');
 var request = require('supertest');
 
@@ -29,17 +29,17 @@ const result = {
             ]
         }
 
-describe('API Tests', function () {
-    it('should return version number', function (done) {
-        request(app)
-            .get('/api')
-            .end(function (err, res) {
-                expect(res.body.version).to.be.ok;
-                expect(res.statusCode).to.be.equal(200);
-                done();
-            });
-    });
-});
+// describe('API Tests', function () {
+//     it('should return version number', function (done) {
+//         request(app)
+//             .get('/api')
+//             .end(function (err, res) {
+//                 expect(res.body.version).to.be.ok;
+//                 expect(res.statusCode).to.be.equal(200);
+//                 done();
+//             });
+//     });
+// });
 
 describe('Shoe Api Routes', function () {
 
@@ -129,7 +129,7 @@ describe('Shoe Api Routes', function () {
 
             let id = 5
 
-            request(ShoeRoutes)
+            request(BasketRoutes)
                 .get("/api/shoes/sold/" + id)
                 .set('Accept', 'application/json')
                 .expect(200)
@@ -140,7 +140,7 @@ describe('Shoe Api Routes', function () {
 
         it('Return basket and respond with json', function () {
 
-            request(ShoeRoutes)
+            request(BasketRoutes)
                 .get("/api/basket")
                 .set('Accept', 'application/json')
                 .expect(200)
@@ -149,7 +149,8 @@ describe('Shoe Api Routes', function () {
                 })
         });
 
-        // after(async function () {
-        //     app.end();
+        // after( async function () {
+        //     ShoeRoutes().stop();
+            
         //   });
  });
