@@ -7,6 +7,8 @@ node_js:
         - "8.9.4"
 
 before_script:
+  -npm install
+  -npm start
   - psql -c 'create database  shoe_api_test;' -U postgres
   - psql -U postgres -d shoe_api_test -a -f sql_scripts/shoe_api_tables.sql
 
