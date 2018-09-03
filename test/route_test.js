@@ -4,13 +4,6 @@ const request = require('supertest');
 
 const baseURL = 'http://localhost:6008';
 
-const Connection = require('../config/test_database_connection.js')
-
-const pool = Connection()
-
-const ShoeApi = require('../services/shoe_api.js');
-const ShoeApiBasket = require('../services/shoe_api_basket.js');
-
 const result = {
             status: 'success',
             data: [
@@ -25,43 +18,18 @@ const result = {
             ]
         }
 
-    function theResult(pool) {
-        // let getIds = await pool.query('select * from shoes')
 
-        let shoes = []
-        for (shoe in getIds.rows) {
-            reulst.data.push({
-                id: shoe.id,
-                color: shoe.color,
-                brand: shoe.brand,
-                price: shoe.price,
-                size: shoe.size,
-                in_stock: shoe.in_stock
-            })
-        }
-        return shoes
-    }
-
-describe('GET /api/shoes', function () {
-
-  beforeEach(async function() {
-    let shoeApi = ShoeApi(pool)
-
-    await pool.query("delete from basket");
-
-    await pool.query("delete from shoes");
-
-    await shoeApi.addShoes()
-  });
+describe('Shoe Api Routes', function () {
 
     it(' get all shoes and respond with json', function () {
 
         request(baseURL)
             .get('/api/shoes')
             .set('Accept', 'application/json')
-            .expect('Content-Type', /json/)
-            // .expect(result)
             .expect(200)
+            .then(result =>{
+            assert.equal(result.body.status,'success');
+            }) 
     });
 
     it('add shoe and respond with json', function () {
@@ -76,6 +44,8 @@ describe('GET /api/shoes', function () {
             .post('/api/shoes')
             .send(newShoe)
             .set('Accept', 'application/json')
+            // .expect('Content-Type', /json/)
+
            // .expect(newShoe)
            .expect(200)
             .then(result =>{
@@ -91,6 +61,8 @@ describe('GET /api/shoes', function () {
             .expect(200)
             .then(result =>{
                 assert.equal(result.body.status,'success');
+                assert.deepEqual(result.body.data[0].size,size)
+
             }) 
         });
 
@@ -102,24 +74,58 @@ describe('GET /api/shoes', function () {
             .expect(200)
             .then(result =>{
                 assert.equal(result.body.status,'success');
+                assert.deepEqual(result.body.data[0].brand,brand)
+
             }) 
-        });
+        });    
 
     it(' get shoe by brand and size and respond with json', function () {
-       
+       let size = 5
         request(baseURL)
             .get('/api/shoes/brand/Nike/size/5')
             .set('Accept', 'application/json')
             .expect(200)
             .then(result =>{
                 assert.equal(result.body.status,'success');
+                assert.deepEqual(result.body.data[0].brand,size)
+                assert.deepEqual(result.body.data[0].brand,brand)
+
+
             }) 
         });
 
-    after(async function () {
-        await pool.end();
-      });
+  
     });
 
+    describe('Shoe Basket Api Routes', function () {
 
-   
+        it('Add shoe to basket and respond with json', function () {
+
+            let id = 5
+
+            request(baseURL)
+                .get("/api/shoes/sold/" + id)
+                .set('Accept', 'application/json')
+                .expect(200)
+                .then(result => {
+                    assert.equal(result.body.status, 'success');
+                })
+        });
+
+        it('Return basket and respond with json', function () {
+
+            request(baseURL)
+                .get("/api/basket")
+                .set('Accept', 'application/json')
+                .expect(200)
+                .then(result => {
+                    assert.equal(result.body.status, 'success');
+                })
+        });
+
+        // after(async function () {
+        //     baseURL.end();
+        //   });
+
+    });
+
