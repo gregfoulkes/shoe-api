@@ -90,7 +90,7 @@ describe('Shoe Api Routes', function () {
             .expect(200)
             .then(result =>{
                 assert.equal(result.body.status,'success');
-                assert.deepEqual(result.body.data[0].brand,size)
+                assert.deepEqual(result.body.data[0].size,size)
                 assert.deepEqual(result.body.data[0].brand,brand)
 
 
