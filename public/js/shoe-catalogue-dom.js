@@ -134,7 +134,9 @@ addBtn.addEventListener('click', function () {
     qty: Number(getQty.value)
   }
   shoeApi.addShoe(shoe)
-  .then(refreshShoes());
+  
+    refreshShoes()
+    
 });
 
 function getId(id) {

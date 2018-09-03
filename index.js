@@ -27,21 +27,23 @@ app.use(session({
     saveUninitialized: true
 }));
 
+const Connection = require('./config/database_connection.js')
+
 //connect to postgres database
-var postgres = require('pg')
-const Pool = postgres.Pool
+// var postgres = require('pg')
+// const Pool = postgres.Pool
 
-let useSSL = false;
-if (process.env.DATABASE_URL) {
-    useSSL = true;
-}
+// let useSSL = false;
+// if (process.env.DATABASE_URL) {
+//     useSSL = true;
+// }
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://coder:1234@localhost:5432/shoe_api'
+// const connectionString = process.env.DATABASE_URL || 'postgresql://coder:1234@localhost:5432/shoe_api'
 
-const pool = new Pool({
-    connectionString,
-    ssl: useSSL
-})
+// const pool = new Pool({
+//     connectionString,
+//     ssl: useSSL
+// })
 
 app.use(function (req, res, next) {
 
@@ -49,168 +51,36 @@ app.use(function (req, res, next) {
 
 });
 
+const ShoeRoutes = require('./routes/shoe-routes.js')
+const BasketRoutes = require('./routes/shoe-basket-routes.js')
+
 const ShoeApi = require('./services/shoe_api.js');
 const ShoeBasketApi = require('./services/shoe_api_basket.js');
-const shoeBasketApi = ShoeBasketApi(pool)
-const shoeApi = ShoeApi(pool);
+const shoeBasketApi = ShoeBasketApi(Connection())
+const shoeApi = ShoeApi(Connection());
+
+const shoeRoutes = ShoeRoutes(shoeApi)
+const basketRoutes = BasketRoutes(shoeBasketApi)
 
 app.get('/', async function (req, res, next) {
     res.json('Hello')
 })
 
-app.get('/api/shoes', async function (req, res) {
-    try {
-        const shoes = await shoeApi.shoeList();
-        res.json({
-            status: 'success',
-            data: shoes
-        });
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: err.stack
-        });
-    }
-})
+app.get('/api/shoes', shoeRoutes.listOfShoes)
 
-app.get('/api/shoes/brand/:brandname', async function (req, res) {
-    let brandName = req.params.brandname
-    try {
-        const shoeByBrand = await shoeApi.getBrandQuery(brandName);
-        //console.log(shoeByBrand)
-        res.json({
-            status: 'success',
-            data: shoeByBrand
-        });
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: err.stack
-        });
-    }
-})
+app.get('/api/shoes/brand/:brandname', shoeRoutes.filterShoeByBrand);
 
-app.get('/api/shoes/size/:size', async function (req, res) {
-    let shoeSize = req.params.size
-    try {
-        const shoeBySize = await shoeApi.getSizeQuery(shoeSize);
-        //console.log(shoeBySize)
-        res.json({
-            status: 'success',
-            data: shoeBySize
-        });
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: err.stack
-        });
-    }
-})
+app.get('/api/shoes/size/:size', shoeRoutes.filterShoeBySize);
 
-app.get('/api/shoes/brand/:brand/size/:size', async function (req, res) {
-    let shoeSize = req.params.size
-    let shoeBrand = req.params.brand
+app.get('/api/shoes/brand/:brand/size/:size',shoeRoutes.filterShoeByBrandSize);
 
-    try {
-        const shoeByBrandAndSize = await shoeApi.getBrandandSizeQuery(shoeBrand, shoeSize);
+app.post('/api/shoes', shoeRoutes.filterShoeByBrandSize);
 
-        console.log(shoeByBrandAndSize)
-        res.json({
-            status: 'success',
-            data: shoeByBrandAndSize
-        });
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: err.stack
-        });
-    }
-})
+app.get('/api/shoes/sold/:id', basketRoutes.addToBasket);
 
-app.post('/api/shoes', async function (req, res) {
+app.get('/api/basket', basketRoutes.returnShoeBasketAndTotal);
 
-    try {
-        await shoeApi.addShoeToList(req.body);
-        const shoes = await shoeApi.shoeList();
-
-       // console.log(req.body)
-        res.json({
-            status: 'success',
-            data: shoes
-        });
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: err.stack
-        });
-    }
-})
-
-app.get('/api/shoes/sold/:id', async function (req, res) {
-    try {
-
-        //let basketId = req.params.id;
-        //console.log(req.params.id)
-        await shoeBasketApi.addItemToBasket(req.params.id);
-        const basket = await shoeBasketApi.returnBasket()
-        res.json({
-            status: 'success',
-            items: basket,
-            total: basket.total
-        });
-
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: err.stack
-        });
-    }
-})
-
-app.get('/api/basket', async function (req, res) {
-    try {
-
-        const basket = await shoeBasketApi.returnBasket();
-        const total = await shoeBasketApi.getTotal();
-        //console.log(basket)
-
-        res.json({
-            status: 'success',
-            items: basket,
-            total: total
-        });
-
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: err.stack
-        });
-    }
-
-})
-
-app.post('/api/clear', async function (req, res) {
-    try {
-        //displayBasketList
-        await shoeBasketApi.deleteFromCart()
-        let basket = shoeBasketApi.returnBasket()
-        const total = await shoeBasketApi.getTotal();
-
-       // console.log(basket)
-
-        res.json({
-            status: 'success',
-            items: basket,
-            total: total
-        });
-
-    } catch (err) {
-        res.json({
-            status: 'error',
-            error: err.stack
-        });
-    }
-})
+app.post('/api/clear', basketRoutes.clearTheBasket);
 
 //start the server
 let PORT = process.env.PORT || 6008;
