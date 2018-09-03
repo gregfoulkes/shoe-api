@@ -2,7 +2,7 @@ let assert = require("assert");
 
 const request = require('supertest');
 
-const baseURL = 'http://localhost:6008';
+const baseURL = process.env.BASE_URL || 'http://localhost:6008';
 
 const result = {
             status: 'success',
