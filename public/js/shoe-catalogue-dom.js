@@ -35,7 +35,7 @@ var shoeBasketTemplateSource = document.querySelector('.displaylBasketTemplate')
 var shoeBasketTemplate = Handlebars.compile(shoeBasketTemplateSource);
 var insertBasketDataElem = document.querySelector(".displayBasketList");
 
-// cartDisplayTemplate
+//cartDisplayTemplate
 
 var shoeCartTemplateSource = document.querySelector('.cartDisplayTemplate').innerHTML;
 var shoeCartTemplate = Handlebars.compile(shoeCartTemplateSource);
@@ -81,7 +81,7 @@ function refreshBasket() {
 window.addEventListener('DOMContentLoaded', function () {
 
   refreshShoes()
-  refreshBasket()
+ refreshBasket()
 
 })
 
