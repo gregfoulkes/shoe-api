@@ -31,15 +31,15 @@ var insertShoeDataElem = document.querySelector(".displayShoelist");
 
 //shoeBasketTemplate
 
-var shoeBasketTemplateSource = document.querySelector('.displaylBasketTemplate').innerHTML;
-var shoeBasketTemplate = Handlebars.compile(shoeBasketTemplateSource);
-var insertBasketDataElem = document.querySelector(".displayBasketList");
+// var shoeBasketTemplateSource = document.querySelector('.displaylBasketTemplate').innerHTML;
+// var shoeBasketTemplate = Handlebars.compile(shoeBasketTemplateSource);
+// var insertBasketDataElem = document.querySelector(".displayBasketList");
 
 //cartDisplayTemplate
 
-var shoeCartTemplateSource = document.querySelector('.cartDisplayTemplate').innerHTML;
-var shoeCartTemplate = Handlebars.compile(shoeCartTemplateSource);
-var insertCartDataElem = document.querySelector(".displayCartTotals");
+// var shoeCartTemplateSource = document.querySelector('.cartDisplayTemplate').innerHTML;
+// var shoeCartTemplate = Handlebars.compile(shoeCartTemplateSource);
+// var insertCartDataElem = document.querySelector(".displayCartTotals");
 
 var shoeApi = ShoeCatalogueFunction()
 
@@ -52,36 +52,36 @@ function refreshShoes() {
     })
 }
 
-function refreshBasket() {
+// function refreshBasket() {
 
-  shoeApi.getBasket()
-    .then(res => {
-      let result = res.data;
-      let resultTotal = result.total
-      let fixedResultTotal = resultTotal.toFixed(2)
+//   shoeApi.getBasket()
+//     .then(res => {
+//       let result = res.data;
+//       let resultTotal = result.total
+//       let fixedResultTotal = resultTotal.toFixed(2)
 
-      if (result.status === 'error') {
-        alert(result.error);
-      }
+//       if (result.status === 'error') {
+//         alert(result.error);
+//       }
 
-      insertBasketDataElem.innerHTML = shoeBasketTemplate({
-        items: result.items
-      })
+//       insertBasketDataElem.innerHTML = shoeBasketTemplate({
+//         items: result.items
+//       })
 
-      insertCartDataElem.innerHTML = shoeCartTemplate({
-        grandTotal:fixedResultTotal
-      })
-    })
-    .catch(function (err) {
-      alert(err.stack);
-    });
+//       insertCartDataElem.innerHTML = shoeCartTemplate({
+//         grandTotal:fixedResultTotal
+//       })
+//     })
+//     .catch(function (err) {
+//       alert(err.stack);
+//     });
 
-}
+// }
 
 window.addEventListener('DOMContentLoaded', function () {
 
   refreshShoes()
- refreshBasket()
+ //refreshBasket()
 
 })
 
@@ -100,8 +100,8 @@ searchBtn.addEventListener('click', function () {
       .catch(function (err) {
         alert(err.stack);
       });
-    }else{
-        if (filterBrand.value) {
+    }//else{
+      else if (filterBrand.value) {
           shoeApi.getShoesByBrand(filterBrand.value)
             .then(res => {
               insertShoeDataElem.innerHTML = shoeFilterTemplate({
@@ -118,50 +118,52 @@ searchBtn.addEventListener('click', function () {
             })
             return
         }
-    return
+    // return
+       else{
+        refreshShoes()
        }  
       
 });
 
 
-addBtn.addEventListener('click', function () {
+// addBtn.addEventListener('click', function () {
 
-  let shoe = {
-    brand: getBrand.value,
-    color: getColor.value,
-    size: Number(getSize.value),
-    price: parseFloat(getPrice.value),
-    qty: Number(getQty.value)
-  }
-  shoeApi.addShoe(shoe)
+//   let shoe = {
+//     brand: getBrand.value,
+//     color: getColor.value,
+//     size: Number(getSize.value),
+//     price: parseFloat(getPrice.value),
+//     qty: Number(getQty.value)
+//   }
+//   shoeApi.addShoe(shoe)
   
-    refreshShoes()
+//     refreshShoes()
     
-});
+// });
 
-function getId(id) {
-  shoeApi.addToBasket(id)
-    .then(res => {
+// function getId(id) {
+//   shoeApi.addToBasket(id)
+//     .then(res => {
 
-      refreshShoes()
-      refreshBasket()
-    })
-}
+//       refreshShoes()
+//       refreshBasket()
+//     })
+// }
 
-function clearBasket() {
-  shoeApi.clearShoppingBasket()
-    .then(res => {
+// function clearBasket() {
+//   shoeApi.clearShoppingBasket()
+//     .then(res => {
 
-      let result = res.data;
-      let resultTotal = result.total
-      let fixedResultTotal = resultTotal.toFixed(2)
-      if (result.status === 'error') {
-        alert(result.error);
-      }
-      refreshShoes()
-      refreshBasket()
-    })
-    .catch(function (err) {
-      alert(err.stack);
-    });
-}
+//       let result = res.data;
+//       let resultTotal = result.total
+//       let fixedResultTotal = resultTotal.toFixed(2)
+//       if (result.status === 'error') {
+//         alert(result.error);
+//       }
+//       refreshShoes()
+//       refreshBasket()
+//     })
+//     .catch(function (err) {
+//       alert(err.stack);
+//     });
+// }

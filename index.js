@@ -21,6 +21,8 @@ app.use(bodyParser.json())
 
 app.use(flash());
 
+app.use(cors());
+
 app.use(session({
     secret: "<add a secret string here>",
     resave: false,
