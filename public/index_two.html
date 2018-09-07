@@ -4,13 +4,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src='https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.js'></script>
   <link rel="stylesheet" type="text/css" href="./semantic/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="./semantic/semantic.min.js">
-  <script src="./semantic.min.js"></script>
+  <!-- <link rel="stylesheet" type="text/css" href="./semantic/semantic.min.js"> -->
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+
 
 </head>
 
-
+<style></style>
 
 <script type="text/x-template" class='displayFilterTemplate'>
 
@@ -38,7 +40,7 @@
               <td>{{size}}</td>
               <td>{{price}}</td>
               <td>{{in_stock}}</td>
-              <td><button class="ui icon button addButton">
+              <td><button class="ui icon button addButton" onclick='getId({{id}})'>
                   <i class="cart icon"></i>
                 </button></td>
             </tr>
@@ -51,17 +53,64 @@
 
 </script>
 
+<script type="text/x-template" class='displaylBasketTemplate'>
+
+  <div class="displayBasket">
+      <div class="ui modal">
+          <i class="close icon"></i>
+          <div class="header">
+            Cart: {{grandTotal}}
+          </div>
+          <table class="ui inverted table">
+                  <thead>
+                      <tr>
+                        <th class="four wide">Name</th>
+                        <th class="four wide">Color</th>
+                        <th class="four wide">Size</th>
+                        <th class="four wide">Price</th>
+                        <th class="four wide ">In Stock</th>
+                        <th class="four wide"></th>
+        
+        
+                      </tr>
+                    </thead>
+                  <tbody>
+                      {{#each items}}
+        
+                    <tr>
+                      
+                      <td>{{brand}}</td>
+                      <td>{{color}}</td>
+                      <td>{{size}}</td>
+                      <td>{{price}}</td>
+                      <td>{{qty}}</td>
+                      <td>{{total}}</td>
+
+         
+                    </tr>
+                    {{/each}}
+        
+                  </tbody>
+                </table>
+              </div>
+
+  </div>
+
+</script>
+
 <body>
 
     <h3 class="ui right aligned block header">
-        <div class="ui vertical animated button" tabindex="0">
-            <div class="hidden content">Cart</div>
-            <div class="visible content">
-                <i class="cart icon"></i>
-                <div class="sub header">View Cart</div>
-
-              </div>
-          </div> 
+       <button style="border:none; background:none" onclick='modalUi()'>
+          <div class="ui vertical animated button" tabindex="0">
+              <div class="hidden content">Cart</div>
+              <div class="visible content">
+             <i class="cart icon"></i>   
+                  <div class="sub header">View Cart</div>
+  
+                </div>
+            </div> 
+       </button> 
      
         </h3>
 
@@ -140,13 +189,13 @@
           <div class='column'>
   
             <div class="ui segment">
-              <select class="ui selection dropdown">
-                <option value="">Select A Brand</option>
-                <option value="Nike">Nike</option>
-                <option value="Adidas">Adidas</option>
-                <option value="Adidas">New Balance</option>
-                <option value="Adidas">All Stars</option>
-                <option value="Adidas">La Coste</option>
+              <select class=" getBrand ui selection dropdown">
+                <option class="brand" value="">Select A Brand</option>
+                <option class="brand" value="Nike">Nike</option>
+                <option class="brand" value="Adidas">Adidas</option>
+                <option class="brand" value="Adidas">New Balance</option>
+                <option class="brand" value="Adidas">All Stars</option>
+                <option class="brand" value="Adidas">La Coste</option>
               </select>
             </div>
   
@@ -156,20 +205,20 @@
           <div class='column'>
   
             <div class="ui segment">
-              <select class="ui selection dropdown">
-                <option value="">Select A Size</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="10">11</option>
-                <option value="10">12</option>
+              <select class=" getSize ui selection dropdown">
+                <option class="size" value="">Select A Size</option>
+                <option class="size" value="1">1</option>
+                <option class="size" value="2">2</option>
+                <option class="size" value="3">3</option>
+                <option class="size" value="4">4</option>
+                <option class="size" value="5">5</option>
+                <option class="size" value="6">6</option>
+                <option class="size" value="7">7</option>
+                <option class="size" value="8">8</option>
+                <option class="size" value="9">9</option>
+                <option class="size" value="10">10</option>
+                <option class="size" value="10">11</option>
+                <option class="size" value="10">12</option>
               </select>
             </div>
             
@@ -178,13 +227,13 @@
           <div class='column'>
   
               <div class="ui segment">
-                <select class="ui selection dropdown">
-                  <option value="">Select A Color</option>
-                  <option value="White">White</option>
-                  <option value="Red">Red</option>
-                  <option value="Blue">Blue</option>
-                  <option value="Green">Green</option>
-                  <option value="Black">La Coste</option>
+                <select class="getColor ui selection dropdown">
+                  <option class="color" value="">Select A Color</option>
+                  <option class="color" value="White">White</option>
+                  <option class="color" value="Red">Red</option>
+                  <option class="color" value="Blue">Blue</option>
+                  <option class="color" value="Green">Green</option>
+                  <option class="color" value="Black">La Coste</option>
                 </select>
               </div>
     
@@ -194,7 +243,7 @@
   
                 <div class="ui segment">
                     <div class="ui input ">
-                        <input type="text" placeholder="Enter a price...">
+                        <input class="getPrice" type="text" placeholder="Enter a price...">
                       </div>
            
                 </div>
@@ -205,7 +254,7 @@
   
                   <div class="ui segment">
                       <div class="ui input">
-                          <input type="text" placeholder="Enter a qauntity...">
+                          <input class="getQty"  type="text" placeholder="Enter a qauntity...">
                         </div>
              
                   </div>
@@ -214,22 +263,71 @@
   
           <div class='column'>
   
-            <button class="ui button filterButton">Search</button>
+            <button class="ui button addButton">Search</button>
   
           </div>
         </div>
 
     </div>
 
-  </div>
+    <div class = 'ui one column grid'>
+        <div class='column'>
+            <div class="displayBasketList">
+
+              </div>
+
+        </div>
+
+    </div>
+
+    <!-- <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Cart: {{total}}
+        </div> -->
+        <div class='column'>
+            <div class="displayBasketList">
+
+              </div>
+
+        </div>
+  
+
+        <!-- <div class="actions">
+        </div> -->
+      <!-- </div> -->
 
 
 
 
 </body>
 
+<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="semantic/semantic.min.js"></script>
+
 <script src="js/shoe-catalogue.js"></script>
 
 <script src="js/shoe-catalogue-dom.js"></script>
+
+<script>
+  $(document).ready(function () {
+  //your code here
+});
+
+
+  function modalUi(){
+    $('.modal')
+  .modal('show')
+;
+  }
+
+  function modal(className){
+
+  }
+
+</script>
 
 </html>
