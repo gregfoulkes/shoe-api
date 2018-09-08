@@ -12,7 +12,11 @@
 
 </head>
 
-<style></style>
+<style>
+.ui.sidebar {
+    overflow: visible !important;
+}
+</style>
 
 <script type="text/x-template" class='displayFilterTemplate'>
 
@@ -302,10 +306,29 @@
            
 
         <!-- </div> -->
+        <div class="ui sidebar inverted vertical menu">
+          <div class='column'>
   
+            <div class="ui segment">
+              <select class=" getBrand ui selection dropdown">
+                <option class="brand" value="">Select A Brand</option>
+                <option class="brand" value="Nike">Nike</option>
+                <option class="brand" value="Adidas">Adidas</option>
+                <option class="brand" value="Adidas">New Balance</option>
+                <option class="brand" value="Adidas">All Stars</option>
+                <option class="brand" value="Adidas">La Coste</option>
+              </select>
+            </div>
+  
+          </div>
+        </div>
+        <div class="pusher">
+          <!-- Site content !-->
+        </div>
 
+        <button onclick='sidebarUi()'class="ui button addButton">Search</button>
 
-
+        
 
 
 </body>
@@ -329,6 +352,12 @@
   function modalUi(){
     $('.modal')
   .modal('show')
+;
+  }
+
+  function sidebarUi(){
+    $('.ui.sidebar')
+  .sidebar('toggle')
 ;
   }
 
