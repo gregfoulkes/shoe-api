@@ -56,43 +56,55 @@
 <script type="text/x-template" class='displaylBasketTemplate'>
 
   <div class="displayBasket">
+
       <div class="ui modal">
           <i class="close icon"></i>
           <div class="header">
-            Cart: {{grandTotal}}
+            Total:{{grandTotal}}
           </div>
-          <table class="ui inverted table">
-                  <thead>
-                      <tr>
-                        <th class="four wide">Name</th>
-                        <th class="four wide">Color</th>
-                        <th class="four wide">Size</th>
-                        <th class="four wide">Price</th>
-                        <th class="four wide ">In Stock</th>
-                        <th class="four wide"></th>
-        
-        
-                      </tr>
-                    </thead>
-                  <tbody>
-                      {{#each items}}
-        
-                    <tr>
-                      
-                      <td>{{brand}}</td>
-                      <td>{{color}}</td>
-                      <td>{{size}}</td>
-                      <td>{{price}}</td>
-                      <td>{{qty}}</td>
-                      <td>{{total}}</td>
+          <table class=" padTable ui inverted table">
+              <thead>
+                  <tr>
+                    <th class="four wide">Name</th>
+                    <th class="four wide">Color</th>
+                    <th class="four wide">Size</th>
+                    <th class="four wide">Price</th>
+                    <th class="four wide ">In Stock</th>
+                    <th class="four wide"></th>
+    
+    
+                  </tr>
+                </thead>
+              <tbody>
+                  {{#each items}}
+    
+                <tr>
+                  
+                  <td>{{brand}}</td>
+                  <td>{{color}}</td>
+                  <td>{{size}}</td>
+                  <td>{{price}}</td>
+                  <td>{{qty}}</td>
+                  <td>{{total}}</td>
 
-         
-                    </tr>
-                    {{/each}}
-        
-                  </tbody>
-                </table>
-              </div>
+     
+                </tr>
+                {{/each}}
+    
+              </tbody>
+            </table>
+
+       
+          <div class="actions">
+            <button onclick='clearBasket()' style='border:none; background:none'>
+                <div class="ui black deny button">
+                    Clear Cart
+                  </div>
+            </button>
+          </div>
+        </div>
+    
+       
 
   </div>
 
@@ -280,22 +292,18 @@
 
     </div>
 
-    <!-- <div class="ui modal">
-        <i class="close icon"></i>
-        <div class="header">
-          Cart: {{total}}
-        </div> -->
-        <div class='column'>
+
+        <!-- <div class='column'> -->
             <div class="displayBasketList">
 
               </div>
 
-        </div>
+     
+           
+
+        <!-- </div> -->
   
 
-        <!-- <div class="actions">
-        </div> -->
-      <!-- </div> -->
 
 
 

@@ -133,14 +133,17 @@ addBtn.addEventListener('click', function () {
     brand: getBrand.value,
     color: getColor.value,
     size: Number(getSize.value),
-    price: parseFloat(getPrice.value),
+    price: Number(getPrice.value),
     qty: Number(getQty.value)
   }
+  console.log(shoeApi.addShoe(shoe))
   shoeApi.addShoe(shoe)
+  
   .then(res => {
-    insertShoeDataElem.innerHTML = shoeFilterTemplate({
-      shoeList: res.data.data
-    })
+    // insertShoeDataElem.innerHTML = shoeFilterTemplate({
+    //   shoeList: res.data.data
+    refreshShoes()
+    // })
   })
       
 });
@@ -154,20 +157,20 @@ function getId(id) {
     })
 }
 
-// function clearBasket() {
-//   shoeApi.clearShoppingBasket()
-//     .then(res => {
+function clearBasket() {
+  shoeApi.clearShoppingBasket()
+    .then(res => {
 
-//       let result = res.data;
-//       let resultTotal = result.total
-//       let fixedResultTotal = resultTotal.toFixed(2)
-//       if (result.status === 'error') {
-//         alert(result.error);
-//       }
-//       refreshShoes()
-//       refreshBasket()
-//     })
-//     .catch(function (err) {
-//       alert(err.stack);
-//     });
-// }
+      let result = res.data;
+      let resultTotal = result.total
+      let fixedResultTotal = resultTotal.toFixed(2)
+      if (result.status === 'error') {
+        alert(result.error);
+      }
+      refreshShoes()
+      refreshBasket()
+    })
+    .catch(function (err) {
+      alert(err.stack);
+    });
+}
