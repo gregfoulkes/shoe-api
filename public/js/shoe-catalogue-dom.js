@@ -150,8 +150,10 @@ addBtn.addEventListener('click', function () {
         if(res.data.status == 'success')
         insertMessageDataElem.innerHTML = messageTemplate({
           message: res.data.message
+        })
+        if (insertMessageDataElem && insertMessageDataElem.innerHTML !== '') {
+          setTimeout(() => insertMessageDataElem.innerHTML = '', 3000);
         }
-        )
       })
    }//else{
   //   // shoeApi.addShoe(shoe)
@@ -170,10 +172,12 @@ if(res.data.status == 'success'){
       // message: 'Added to Basket'
       message: res.data.message
     })  
-    setTimeout(function(){
-      displayMessage.style.display = 'none', 3000
-  }, 2000);
-
+  //   setTimeout(function(){
+  //     displayMessage.style.display = 'none', 3000
+  // }, 2000);
+  if (insertMessageDataElem && insertMessageDataElem.innerHTML !== '') {
+    setTimeout(() => insertMessageDataElem.innerHTML = '', 3000);
+  }
 }
      
     })
