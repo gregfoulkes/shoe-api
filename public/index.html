@@ -16,6 +16,11 @@
   .ui.sidebar {
     overflow: visible !important;
   }
+
+  .center-cart{
+    float:right important;
+  }
+
 </style>
 
 <script type="text/x-template" class='messageDisplayTemplate'>
@@ -128,8 +133,29 @@
 
 <body>
 
-  <h3 class="ui right aligned block header">
-    <button style="border:none; background:none" onclick='modalUi()'>
+   <!-- <h3 class="ui right aligned block header"> -->
+      <div class="ui one column grid">
+          <div class="column">
+            <div class="ui segment">
+              <h1 class="ui center aligned header">
+                Shoe Catalogue Api
+                <div class="sub header">A Simple Shoe Catalogue Api</div>
+              </h1>
+            </div>
+            <!-- <button style="border:none; background:none" onclick='modalUi()'>
+                <div class="ui vertical animated button" tabindex="0">
+                  <div class="hidden content">Cart</div>
+                  <div class="visible content">
+                    <i class="cart icon"></i>
+                    <div class="sub header">View Cart</div>
+          
+                  </div>
+                </div>
+              </button> -->
+          </div>
+        </div>
+        <!-- </div> -->
+    <!-- <button style="border:none; background:none" onclick='modalUi()'>
       <div class="ui vertical animated button" tabindex="0">
         <div class="hidden content">Cart</div>
         <div class="visible content">
@@ -138,19 +164,27 @@
 
         </div>
       </div>
-    </button>
+    </button> -->
 
-  </h3>
+  </h3> 
 
   <div class="ui one column grid">
     <div class="column">
-      <div class="ui segment">
         <h1 class="ui center aligned header">
-          Shoe Catalogue Api
-          <div class="sub header">A Simple Shoe Catalogue Api</div>
+            <button style="border:none; background:none" onclick='modalUi()'>
+                <div class="ui vertical animated button" tabindex="0">
+                  <div class="hidden content">Cart</div>
+                  <div class="visible content">
+                    <i class="cart icon"></i>
+                    <div class="sub header">View Cart</div>
+          
+                  </div>
+                
+              </button> 
         </h1>
       </div>
     </div>
+  </div>
   </div>
 
   <div class="ui container">
@@ -217,9 +251,9 @@
 
 
       <div class='eight wide column '>
-          <div class='displayMessage'>
+        <div style = 'margin: 5px' class='displayMessage'>
 
-            </div>
+        </div>
         <div class='displayShoelist'>
 
 
