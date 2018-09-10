@@ -41,6 +41,11 @@ var shoeCartTemplateSource = document.querySelector('.cartDisplayTemplate').inne
 var shoeCartTemplate = Handlebars.compile(shoeCartTemplateSource);
 var insertCartDataElem = document.querySelector(".displayCartTotals");
 
+//messageDisplayTemplate
+let messageTemplateSource = document.querySelector('.messageDisplayTemplate').innerHTML
+let messageTemplate = Handlebars.compile(messageTemplateSource);
+let insertMessageDataElem = document.querySelector('.displayMessage')
+
 var shoeApi = ShoeCatalogueFunction()
 
 function refreshShoes() {
@@ -128,7 +133,7 @@ searchBtn.addEventListener('click', function () {
 addBtn.addEventListener('click', function () {
 
   if (getBrand.value != '' || getColor.value != '' || getSize.value != '' || getPrice.value != '' || getQty.value != '') {
-
+  
 
     let shoe = {
       brand: getBrand.value,
@@ -141,17 +146,36 @@ addBtn.addEventListener('click', function () {
 
       .then(res => {
         refreshShoes()
+
+        if(res.data.status == 'success')
+        insertMessageDataElem.innerHTML = messageTemplate({
+          message: res.data.message
+        }
+        )
       })
-  }
+   }//else{
+  //   // shoeApi.addShoe(shoe)
+  // }
 
 });
 
 function getId(id) {
   shoeApi.addToBasket(id)
     .then(res => {
+if(res.data.status == 'success'){
+  refreshShoes()
+  refreshBasket()
+  
+    insertMessageDataElem.innerHTML = messageTemplate({
+      // message: 'Added to Basket'
+      message: res.data.message
+    })  
+    setTimeout(function(){
+      displayMessage.style.display = 'none', 3000
+  }, 2000);
 
-      refreshShoes()
-      refreshBasket()
+}
+     
     })
 }
 

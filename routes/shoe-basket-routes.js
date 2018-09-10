@@ -10,7 +10,8 @@ module.exports = function(shoeBasketApi){
             res.json({
                 status: 'success',
                 items: basket,
-                total: basket.total
+                total: basket.total,
+                message:'Succesfully added to cart'
             });
     
         } catch (err) {

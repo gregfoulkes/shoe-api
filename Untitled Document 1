@@ -1,0 +1,12 @@
+1. I have just completed the Shoe Catalogue Api.
+
+2. I used my existing knowledge of javascript html and css as well as my knowledge of the postgres sql database and its queries. I made use of the semantic ui frame work for my front end and handlebars for templating. 
+
+3.I used my existing knowledge of javascript html and css as well as my knowledge of the postgres sql database and its queries. I made use of the semantic ui frame work for my front end and handlebars for templating. I used express for my server and body parser middleware to parse the body of my html.
+
+4.The main objective of this project was to create an api out of my shoe catalogue project and I learn't how to do that with this project. I also learn't how to use axios to fetch my routes as well as how to test them using super-test. I also separated my files this time around so that my factory function, api services and shoe routes were all separate in files.
+
+5.I found this project quiet challenging at first  in terms of trying to understand what api's where and what their function was. I found it quite complicated adding another layer in between the client side and server side to send and get data between the two. To be honest I am still getting my head around it but I have a fairly good understanding of api's now. Testing the routes was also very challenging.
+
+6.I learn't how to build a simple API to send and get data passing it between the server and client side of my shoe catalogue project. I also learnt how to separate my files into routes and services and clean up my code to make it more organised. I also learnt to test the routes of the api.
+

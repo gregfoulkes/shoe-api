@@ -61,7 +61,7 @@ module.exports = function(shoeApi) {
             console.log(shoeByBrandAndSize)
             res.json({
                 status: 'success',
-                data: shoeByBrandAndSize
+                data: shoeByBrandAndSize,
             });
         } catch (err) {
             res.json({
@@ -79,7 +79,9 @@ module.exports = function(shoeApi) {
            // console.log(req.body)
             res.json({
                 status: 'success',
-                data: shoes
+                data: shoes,
+                message: 'Succesfully Added Shoe'
+
             });
         } catch (err) {
             res.json({
