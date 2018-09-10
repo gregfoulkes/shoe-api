@@ -54,12 +54,12 @@ module.exports = function(pool)  {
 
                 await pool.query('UPDATE shoes SET in_stock=(in_stock + $1) WHERE id=$2', [params.qty, findShoe.rows[0].id])
             }
-
+            //return shoeList
     }
 
     async function shoeList() {
-        let shoes = await pool.query('select * from shoes')
-        return shoes.rows;
+        let shoesFromDB = await pool.query('select * from shoes')
+        return shoesFromDB.rows;
     }
 
     return {

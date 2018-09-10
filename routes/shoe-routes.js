@@ -73,7 +73,7 @@ module.exports = function(shoeApi) {
 
     async function addShoeToList(req, res){
         try {
-            await shoeApi.addShoeToList(req.body);
+           await shoeApi.addShoeToList(req.body);
             const shoes = await shoeApi.shoeList();
     
            // console.log(req.body)

@@ -13,9 +13,9 @@
 </head>
 
 <style>
-.ui.sidebar {
+  .ui.sidebar {
     overflow: visible !important;
-}
+  }
 </style>
 
 <script type="text/x-template" class='displayFilterTemplate'>
@@ -61,11 +61,10 @@
 
   <div class="displayBasket">
 
-      <div class="ui modal">
-          <i class="close icon"></i>
+          <!-- <i class="close icon"></i>
           <div class="header">
             Total:{{grandTotal}}
-          </div>
+          </div> -->
           <table class=" padTable ui inverted table">
               <thead>
                   <tr>
@@ -108,27 +107,29 @@
           </div>
         </div>
     
-       
+</script>
 
+<script type="text/x-template" class='cartDisplayTemplate'>
+  <div class="header">
+          Total:{{grandTotal}}
   </div>
-
 </script>
 
 <body>
 
-    <h3 class="ui right aligned block header">
-       <button style="border:none; background:none" onclick='modalUi()'>
-          <div class="ui vertical animated button" tabindex="0">
-              <div class="hidden content">Cart</div>
-              <div class="visible content">
-             <i class="cart icon"></i>   
-                  <div class="sub header">View Cart</div>
-  
-                </div>
-            </div> 
-       </button> 
-     
-        </h3>
+  <h3 class="ui right aligned block header">
+    <button style="border:none; background:none" onclick='modalUi()'>
+      <div class="ui vertical animated button" tabindex="0">
+        <div class="hidden content">Cart</div>
+        <div class="visible content">
+          <i class="cart icon"></i>
+          <div class="sub header">View Cart</div>
+
+        </div>
+      </div>
+    </button>
+
+  </h3>
 
   <div class="ui one column grid">
     <div class="column">
@@ -167,7 +168,7 @@
 
           <div class="ui segment">
             <select class="ui sizeSelect selection dropdown">
-              <option  value="">Select A Size</option>
+              <option value="">Select A Size</option>
               <option class="size" value="1">1</option>
               <option class="size" value="2">2</option>
               <option class="size" value="3">3</option>
@@ -202,114 +203,126 @@
 
       <div class='four wide column'>
 
-          <div class='column'>
-  
-            <div class="ui segment">
-              <select class=" getBrand ui selection dropdown">
-                <option class="brand" value="">Select A Brand</option>
-                <option class="brand" value="Nike">Nike</option>
-                <option class="brand" value="Adidas">Adidas</option>
-                <option class="brand" value="Adidas">New Balance</option>
-                <option class="brand" value="Adidas">All Stars</option>
-                <option class="brand" value="Adidas">La Coste</option>
-              </select>
-            </div>
-  
-          </div>
-  
-  
-          <div class='column'>
-  
-            <div class="ui segment">
-              <select class=" getSize ui selection dropdown">
-                <option class="size" value="">Select A Size</option>
-                <option class="size" value="1">1</option>
-                <option class="size" value="2">2</option>
-                <option class="size" value="3">3</option>
-                <option class="size" value="4">4</option>
-                <option class="size" value="5">5</option>
-                <option class="size" value="6">6</option>
-                <option class="size" value="7">7</option>
-                <option class="size" value="8">8</option>
-                <option class="size" value="9">9</option>
-                <option class="size" value="10">10</option>
-                <option class="size" value="10">11</option>
-                <option class="size" value="10">12</option>
-              </select>
-            </div>
-            
-          </div>
-
-          <div class='column'>
-  
-              <div class="ui segment">
-                <select class="getColor ui selection dropdown">
-                  <option class="color" value="">Select A Color</option>
-                  <option class="color" value="White">White</option>
-                  <option class="color" value="Red">Red</option>
-                  <option class="color" value="Blue">Blue</option>
-                  <option class="color" value="Green">Green</option>
-                  <option class="color" value="Black">La Coste</option>
-                </select>
-              </div>
-    
-            </div>
-
-            <div class='column'>
-  
-                <div class="ui segment">
-                    <div class="ui input ">
-                        <input class="getPrice" type="text" placeholder="Enter a price...">
-                      </div>
-           
-                </div>
-      
-              </div>
-
-              <div class='column'>
-  
-                  <div class="ui segment">
-                      <div class="ui input">
-                          <input class="getQty"  type="text" placeholder="Enter a qauntity...">
-                        </div>
-             
-                  </div>
-        
-                </div>
-  
-          <div class='column'>
-  
-            <button class="ui button addButton">Search</button>
-  
-          </div>
-        </div>
-
-    </div>
-
-    <div class = 'ui one column grid'>
         <div class='column'>
-            <div class="displayBasketList">
 
-              </div>
+          <div class="ui segment">
+            <select class=" getBrand ui selection dropdown">
+              <option class="brand" value="">Select A Brand</option>
+              <option class="brand" value="Nike">Nike</option>
+              <option class="brand" value="Adidas">Adidas</option>
+              <option class="brand" value="New Balance">New Balance</option>
+              <option class="brand" value="All Stars">All Stars</option>
+              <option class="brand" value="La Coste">La Coste</option>
+            </select>
+          </div>
 
         </div>
+
+
+        <div class='column'>
+
+          <div class="ui segment">
+            <select class=" getSize ui selection dropdown">
+              <option class="size" value="">Select A Size</option>
+              <option class="size" value="1">1</option>
+              <option class="size" value="2">2</option>
+              <option class="size" value="3">3</option>
+              <option class="size" value="4">4</option>
+              <option class="size" value="5">5</option>
+              <option class="size" value="6">6</option>
+              <option class="size" value="7">7</option>
+              <option class="size" value="8">8</option>
+              <option class="size" value="9">9</option>
+              <option class="size" value="10">10</option>
+              <option class="size" value="10">11</option>
+              <option class="size" value="10">12</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class='column'>
+
+          <div class="ui segment">
+            <select class="getColor ui selection dropdown">
+              <option class="color" value="">Select A Color</option>
+              <option class="color" value="White">White</option>
+              <option class="color" value="Red">Red</option>
+              <option class="color" value="Blue">Blue</option>
+              <option class="color" value="Green">Green</option>
+              <option class="color" value="Black">La Coste</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class='column'>
+
+          <div class="ui segment">
+            <div class="ui input ">
+              <input class="getPrice" type="text" placeholder="Enter a price...">
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class='column'>
+
+          <div class="ui segment">
+            <div class="ui input">
+              <input class="getQty" type="text" placeholder="Enter a qauntity...">
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class='column'>
+
+          <button class="ui button addButton">Add</button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class='ui one column grid'>
+      <div class='column'>
+        <div class="ui modal">
+            <i class="close icon"></i>
+            <div class="header">
+                <div class='displayCartTotals'></div>
+
+                <div class="displayBasketList">
+                    Total:{{grandTotal}}
+
+                  </div>
+            </div>
+
+          <div class="displayBasketList">
+
+          </div>
+        </div>
+
+      </div>
 
     </div>
 
 
-        <!-- <div class='column'> -->
-            <div class="displayBasketList">
+    <!-- <div class='column'> -->
+    <div class="displayBasketList">
 
-              </div>
+    </div>
 
-     
-           
 
-        <!-- </div> -->
-        <div class="ui sidebar inverted vertical menu">
-          <div class='column'>
-  
-            <div class="ui segment">
+
+
+    <!-- </div> -->
+    <div class="ui sidebar inverted vertical menu">
+      <div class='column'>
+
+        <!-- <div class="ui segment">
               <select class=" getBrand ui selection dropdown">
                 <option class="brand" value="">Select A Brand</option>
                 <option class="brand" value="Nike">Nike</option>
@@ -318,24 +331,22 @@
                 <option class="brand" value="Adidas">All Stars</option>
                 <option class="brand" value="Adidas">La Coste</option>
               </select>
-            </div>
-  
-          </div>
-        </div>
-        <div class="pusher">
-          <!-- Site content !-->
-        </div>
+            </div> -->
 
-        <button onclick='sidebarUi()'class="ui button addButton">Search</button>
+      </div>
+    </div>
+    <div class="pusher">
+      <!-- Site content !-->
+    </div>
 
-        
+    <button onclick='sidebarUi()' class="ui button addButton">Search</button>
+
+
 
 
 </body>
 
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 <script src="semantic/semantic.min.js"></script>
 
@@ -345,23 +356,23 @@
 
 <script>
   $(document).ready(function () {
-  //your code here
-});
+    //your code here
+  });
 
 
-  function modalUi(){
+  function modalUi() {
     $('.modal')
-  .modal('show')
-;
+      .modal('show')
+      ;
   }
 
-  function sidebarUi(){
+  function sidebarUi() {
     $('.ui.sidebar')
-  .sidebar('toggle')
-;
+      .sidebar('toggle')
+      ;
   }
 
-  function modal(className){
+  function modal(className) {
 
   }
 

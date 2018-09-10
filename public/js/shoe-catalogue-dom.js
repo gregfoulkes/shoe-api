@@ -37,9 +37,9 @@ var insertBasketDataElem = document.querySelector(".displayBasketList");
 
 //cartDisplayTemplate
 
-// var shoeCartTemplateSource = document.querySelector('.cartDisplayTemplate').innerHTML;
-// var shoeCartTemplate = Handlebars.compile(shoeCartTemplateSource);
-// var insertCartDataElem = document.querySelector(".displayCartTotals");
+var shoeCartTemplateSource = document.querySelector('.cartDisplayTemplate').innerHTML;
+var shoeCartTemplate = Handlebars.compile(shoeCartTemplateSource);
+var insertCartDataElem = document.querySelector(".displayCartTotals");
 
 var shoeApi = ShoeCatalogueFunction()
 
@@ -66,12 +66,11 @@ function refreshBasket() {
 
       insertBasketDataElem.innerHTML = shoeBasketTemplate({
         items: result.items,
-        grandTotal:fixedResultTotal
       })
 
-      // insertCartDataElem.innerHTML = shoeCartTemplate({
-      //   grandTotal:fixedResultTotal
-      // })
+      insertCartDataElem.innerHTML = shoeCartTemplate({
+        grandTotal: fixedResultTotal
+      })
     })
     .catch(function (err) {
       alert(err.stack);
@@ -82,7 +81,7 @@ function refreshBasket() {
 window.addEventListener('DOMContentLoaded', function () {
 
   refreshShoes()
- refreshBasket()
+  refreshBasket()
 
 })
 
@@ -91,61 +90,60 @@ searchBtn.addEventListener('click', function () {
   let size = Number(filterSize.value)
 
   if (size && filterBrand.value) {
-    shoeApi.getShoesByBrandAndSize( filterBrand.value,size)
+    shoeApi.getShoesByBrandAndSize(filterBrand.value, size)
       .then(res => {
         insertShoeDataElem.innerHTML = shoeFilterTemplate({
           shoeList: res.data.data
         });
-        
+
       })
       .catch(function (err) {
         alert(err.stack);
       });
-    }//else{
-      else if (filterBrand.value) {
-          shoeApi.getShoesByBrand(filterBrand.value)
-            .then(res => {
-              insertShoeDataElem.innerHTML = shoeFilterTemplate({
-                shoeList: res.data.data
-              });
-            })
-            return
-        } else if (filterSize.value) {
-          shoeApi.getShoesBySize(filterSize.value)
-            .then(res => {
-              insertShoeDataElem.innerHTML = shoeFilterTemplate({
-                shoeList: res.data.data
-              });
-            })
-            return
-        }
-    // return
-       else{
-        refreshShoes()
-       }  
-      
+  } //else{
+  else if (filterBrand.value) {
+    shoeApi.getShoesByBrand(filterBrand.value)
+      .then(res => {
+        insertShoeDataElem.innerHTML = shoeFilterTemplate({
+          shoeList: res.data.data
+        });
+      })
+    return
+  } else if (filterSize.value) {
+    shoeApi.getShoesBySize(filterSize.value)
+      .then(res => {
+        insertShoeDataElem.innerHTML = shoeFilterTemplate({
+          shoeList: res.data.data
+        });
+      })
+    return
+  }
+  else {
+    refreshShoes()
+  }
+
 });
 
 
 addBtn.addEventListener('click', function () {
 
-  let shoe = {
-    brand: getBrand.value,
-    color: getColor.value,
-    size: Number(getSize.value),
-    price: Number(getPrice.value),
-    qty: Number(getQty.value)
+  if (getBrand.value != '' || getColor.value != '' || getSize.value != '' || getPrice.value != '' || getQty.value != '') {
+
+
+    let shoe = {
+      brand: getBrand.value,
+      color: getColor.value,
+      size: Number(getSize.value),
+      price: parseFloat(getPrice.value),
+      qty: Number(getQty.value)
+    }
+    shoeApi.addShoe(shoe)
+
+      .then(res => {
+        refreshShoes()
+      })
   }
-  console.log(shoeApi.addShoe(shoe))
-  shoeApi.addShoe(shoe)
-  
-  .then(res => {
-    // insertShoeDataElem.innerHTML = shoeFilterTemplate({
-    //   shoeList: res.data.data
-    refreshShoes()
-    // })
-  })
-      
+
 });
 
 function getId(id) {

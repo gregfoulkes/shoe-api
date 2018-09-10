@@ -60,7 +60,7 @@ app.get('/api/shoes/size/:size', shoeRoutes.filterShoeBySize);
 
 app.get('/api/shoes/brand/:brand/size/:size',shoeRoutes.filterShoeByBrandSize);
 
-app.post('/api/shoes', shoeRoutes.filterShoeByBrandSize);
+app.post('/api/shoes', shoeRoutes.addShoeToList);
 
 app.get('/api/shoes/sold/:id', basketRoutes.addToBasket);
 
