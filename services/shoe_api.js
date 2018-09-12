@@ -58,7 +58,7 @@ module.exports = function(pool)  {
     }
 
     async function shoeList() {
-        let shoesFromDB = await pool.query('select * from shoes order')
+        let shoesFromDB = await pool.query('select * from shoes')
         return shoesFromDB.rows;
     }
 

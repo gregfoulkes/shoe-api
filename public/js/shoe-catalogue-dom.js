@@ -90,8 +90,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 })
 
-searchBtn.addEventListener('click', function () {
-
+function filterShoes(){
   let size = Number(filterSize.value)
 
   if (size && filterBrand.value) {
@@ -126,6 +125,13 @@ searchBtn.addEventListener('click', function () {
   else {
     refreshShoes()
   }
+}
+
+searchBtn.addEventListener('click', function () {
+
+  filterShoes()
+
+  
 
 });
 
@@ -165,8 +171,8 @@ function getId(id) {
   shoeApi.addToBasket(id)
     .then(res => {
 if(res.data.status == 'success'){
-  refreshShoes()
-  refreshBasket()
+  filterShoes() 
+   refreshBasket()
   
     insertMessageDataElem.innerHTML = messageTemplate({
       // message: 'Added to Basket'
